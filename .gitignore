@@ -1,0 +1,13 @@
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.gz
+*.brf
+*.toc
+*.abs
+*.xmpdata
+*.xmpi
+thesis.pdf
+.idea
