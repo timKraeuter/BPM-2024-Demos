@@ -6,8 +6,9 @@ twocolumn,
 
 %%
 %% One can fix some overfills
-\sloppy
+% \sloppy
 
+% This was used to mitigate some warnings
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
 
@@ -26,15 +27,24 @@ twocolumn,
 \conference{BPM 2024: Demos and Resources,
   September 01--06, 2024, Krakow, PL}
 
-\title{Instantaneous, Comprehensible, and Fixable Soundness Checking of Realistic BPMN Models}
+% TODO: Rename Rust BPMN Analyzer to BPMN Analyzer 2.0 on my website and maybe somewhere on GitHub.
+\title{BPMN Analyzer 2.0: Instantaneous, Comprehensible, and Fixable Anomaly Detection for Realistic BPMN Models}
 
-\author[1]{Tim Kräuter}[
-email=tkra@hvl.no
-]
+\author[1]{Tim Kräuter}
+[email=tkra@hvl.no]
+\author[1]{Patrick Stünkel}
+[email=patrick.stuenkel@hvl.no]
+\author[1]{Adrian Rutle}
+[email=aru@hvl.no]
+\author[1]{Yngve Lamo}
+[email=yla@hvl.no]
+\author[2,1]{Harald König}
+[email=harald.koenig@fhdw.de]
 \address[1]{Western Norway University of Applied Sciences, Bergen, Norway}
+\address[2]{FHDW Hannover, Germany}
 
 \begin{abstract}
-  TBD
+  The tool is available online.
 \end{abstract}
 
 %%
@@ -52,14 +62,28 @@ Safeness
 % Details can be found here: https://bpm2024.agh.edu.pl/call-for-demos-and-resources/
 
 \section{Introduction}
-\cite{krauterFormalizationAnalysisBPMN2023}
+The tool is available online\footnote{\url{https://timkraeuter.com/bpmn-analyzer-js/}} alongside a video demonstration\footnote{\url{https://www.youtube.com/watch?v=MxXbNUl6IjE}}.
+% Why is it significant for the BPM field?
 
+\section{Innovations?} % Main tool description and showing the innovations
+Three main innovations of the tool:
+% Instantaneous
+% Comprehensible
+% Fixable
 
-\section{Innovations?}
+\section{Maturity of the tool}
+% Scalability tests (instantaneous)
+Improves upon our previous BPMN Analyzer tool~\cite{krauterFormalizationAnalysisBPMN2023}.
+% bpmn.io forum link/mention
+
 
 % \begin{acknowledgments}
 % Thanks to the anonymous reviewers for their valuable feedback.
 % \end{acknowledgments}
+
+\section{Related work?}
+
+\section{Conclusion \& future work}
 
 \bibliography{bib}
 
