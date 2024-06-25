@@ -92,6 +92,16 @@ Improves upon our previous BPMN Analyzer tool~\cite{krauterFormalizationAnalysis
 
 \section{Conclusion \& future work}
 
+In this paper, we describe a novel tool that provides instantaneous, comprehensible, and fixable BPMN control-flow anomaly detection and is integrated into a popular BPMN modeling tool.
+We benchmarked our tool against synthetic and realistic BPMN models to demonstrate instantaneous soundness checking.
+We address the three main challenges for providing soundness-checking capabilities to non-expert users as identified in~\cite{fahlandAnalysisDemandInstantaneous2011}.
+First, a model checker must be able to check all or most user-created models, i.e., it must support the most used BPMN elements.
+This is not a problem for most tools, including ours, which has similar capabilities to~\cite{corradiniFormalApproachAnalysis2021}, and we plan to increase our tool's BPMN coverage as needed.
+Second, model checking must be \textit{instantaneous} since long runtimes are unacceptable and often interpreted as tool errors~\cite{fahlandAnalysisDemandInstantaneous2011}.
+Third, the biggest challenge for model checking is \textit{consumability}, i.e., reporting the found violations in a comprehensible user interface.
+Our tool addresses all these challenges and even provides quick fixes for common anomalies.
+The tool is a BPMN-specific model checker written in Rust paired with an intuitive user interface based on the popular \textit{bpmn.io} ecosystem that allows easy extension in the future.
+
 \bibliography{bib}
 
 % If your work has an appendix, this is the place to put it.
