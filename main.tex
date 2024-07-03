@@ -37,12 +37,12 @@ twocolumn,
 \address[2]{FHDW Hannover, Germany}
 
 \begin{abstract}
-Many business process models have control-flow anomalies, such as deadlocks or livelocks, which can hinder proper execution.
-In this paper, we introduce our new tool that can instantaneously identify anomalies in BPMN models, make them comprehensible for modelers, and even suggest corrections to resolve them automatically.
-We demonstrate that our tool's detection is instantaneous, i.e., it takes less than 500ms, by benchmarking our tool against synthetic BPMN models with increasing size and state space complexity, as well as realistic models provided in the literature.
-Moreover, the tool directly displays detected anomalies in the model and provides an interactive visualization.
-Additionally, it provides fixes to resolve the anomalies found, which are not currently available in other tools.
-The tool is open-source, modular, extensible, and integrated into a popular BPMN modeling tool.
+% 102 words
+Many business process models have control-flow anomalies, such as deadlocks or livelocks, which hinder proper execution.
+In this paper, we introduce a new tool that can instantaneously identify anomalies in BPMN models, make them understandable for modelers, and suggest corrections to resolve them.
+We demonstrate that detection is instantaneous by benchmarking our tool against synthetic BPMN models with increasing size and state space complexity, as well as realistic models.
+Moreover, the tool directly displays detected anomalies in the model, including an interactive visualization, and suggests fixes to resolve them.
+The tool is open-source, extensible, and integrated into a popular BPMN modeling tool.
 \end{abstract}
 
 \begin{keywords}
@@ -60,6 +60,7 @@ Safeness
 % 5 pages including references
 % Extended version on GitHub and then on Arxiv once submitted
 
+% An introduction section, which, among others, should highlight the significance of the tool or resource to the BPM field;
 \section{Introduction}
 The tool is available online\footnote{\url{https://timkraeuter.com/bpmn-analyzer-js/}} alongside a video demonstration\footnote{\url{https://www.youtube.com/watch?v=MxXbNUl6IjE}}.
 % Why is it significant for the BPM field?
@@ -71,7 +72,9 @@ The tool is available online\footnote{\url{https://timkraeuter.com/bpmn-analyzer
 	\label{fig:overview}
 \end{figure}
 
-\section{Innovations?} % Main tool description and showing the innovations
+% Must have section according to the description
+% A section discussing the innovations of the tool or resource to the BPM community and its main characteristics or features
+\section{Innovations} % Main tool description and showing the innovations
 Three main innovations of the tool:
 % Instantaneous
 % Comprehensible
