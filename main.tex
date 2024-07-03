@@ -20,7 +20,7 @@
 
 \conference{BPM 2024: Demos and Resources, September 01-06, 2024, Krakow, PL}
 
-\title{BPMN Analyzer 2.0: Instantaneous, Comprehensible, and Fixable Anomaly Detection for Realistic BPMN Models}
+\title{BPMN Analyzer 2.0: Instantaneous, Comprehensible, and Fixable Anomaly Detection for BPMN Models}
 
 \author[1]{Tim Kräuter}
 [email=tkra@hvl.no]
@@ -54,44 +54,74 @@ Safeness
 \end{keywords}
 
 \maketitle
-
-% Details can be found here: https://bpm2024.agh.edu.pl/call-for-demos-and-resources/
 % 5 pages including references
+
 % Extended version on GitHub and then on Arxiv once submitted
 
 % An introduction section, which, among others, should highlight the significance of the tool or resource to the BPM field;
 \section{Introduction}
-The tool is available online\footnote{\url{https://timkraeuter.com/bpmn-analyzer-js/}} alongside a video demonstration\footnote{\url{https://www.youtube.com/watch?v=MxXbNUl6IjE}}.
-% Why is it significant for the BPM field?
+
+% Problem statement
+Business Process Modeling Notation (BPMN) is becoming increasingly popular for automating processes and orchestrating people and systems.
+However, many process models suffer from control-flow anomalies, such as deadlocks, livelocks, starvation, and lack of synchronization~\cite{fahlandAnalysisDemandInstantaneous2011}.
+These errors hinder the correct execution of BPMN models and may be detected late in the development process, resulting in elevated costs.
+
+% Solution
+In this paper, we describe a new tool, the \textit{BPMN Analyzer 2.0}\footnote{
+In the following, we will use BPMN Analyzer to refer to the BPMN Analyzer 2.0, not our previous BPMN Analyzer described in \cite{krauterFormalizationAnalysisBPMN2023}.}, for analyzing BPMN process models to detect control-flow anomalies \textit{already} during modeling.
+\autoref{fig:overview} shows an overview of the tool.
+The tool front-end is based on the popular \textit{bpmn.io} ecosystem, while the analysis is implemented in Rust for performance and memory efficiency reasons.
+The BPMN Analyzer is open-source and accessible online\footnote{\url{https://timkraeuter.com/bpmn-analyzer-js/}} alongside a video demonstration\footnote{\url{https://www.youtube.com/watch?v=MxXbNUl6IjE}}~\cite{timkrauterBPM2024Artifacts2024}.
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.5\linewidth]{images/overview}
-	\caption{Overview of the tool architecture}
+	\includegraphics[width=0.6\linewidth]{images/overview}
+	\caption{Overview of the BPMN Analyzer 2.0}
 	\label{fig:overview}
 \end{figure}
 
+The tool can check models after each change since analysis is \textit{instantaneous} according to \cite{fahlandAnalysisDemandInstantaneous2011}, i.e., it takes 500ms or less.
+Furthermore, we ensure the results are \textit{comprehensible} by highlighting possible violations directly in the model and displaying an interactive counterexample visualization.
+Finally, the tool suggests \textit{fixes} for the most common soundness violations and can be extended to suggest more fixes in the future.
+However, the BPMN analyzer cannot provide fixes for all possible violations due to the wide variety of possible control-flow anomalies in BPMN models.
+
+% Why is it significant for the BPM field?
+Fahland et al.~\cite{fahlandAnalysisDemandInstantaneous2011} describe \textit{coverage}, \textit{immediacy}, and \textit{consumability} as the main challenges for users unaccustomed to formal analysis methods.
+The BPMN Analyzer addresses all these challenges since it supports the most common BPMN elements used in practice (coverage), provides \textit{instantaneous} results (immediacy), and a \textit{comprehensible} user interface (consumability), even including suggestions of fixes.
+Developers of industrial BPMN solutions also like our tool, especially the End-2-End user journey\footnote{\url{https://forum.bpmn.io/t/automatic-bpmn-control-flow-analysis-and-resolution/11150}}.
+Thus validating our claim of a UI that is understandable for users unfamiliar with formal analysis methods.
+
+% Paper structure
+In the remainder of the paper, we describe how instantaneous, comprehensible, and fixable anomaly detection is achieved in \autoref{sec:innovations}.
+Then, we discuss the maturity of our tool in \autoref{sec:maturity} before presenting related work in \autoref{sec:related-work}.
+Finally, we conclude in \autoref{sec:conclusion}.
+
 % Must have section according to the description
 % A section discussing the innovations of the tool or resource to the BPM community and its main characteristics or features
-\section{Innovations} % Main tool description and showing the innovations
+\section{Innovations} \label{sec:innovations} % Main tool description and showing the innovations
 Three main innovations of the tool:
 % Instantaneous
 % Comprehensible
 % Fixable
 
 % They also want this section
-\section{Maturity of the tool}
-% Scalability tests (instantaneous)
+\section{Maturity of the tool} \label{sec:maturity}
+% Discuss/highlight the implementation: Test cases, static analysis etc. industrial standard! ;)
+% Scalability tests (instantaneous) --> Generated models are public including our tool for future direct comparisons
 Improves upon our previous BPMN Analyzer tool~\cite{krauterFormalizationAnalysisBPMN2023}.
 
 % bpmn.io forum link/mention: https://forum.bpmn.io/t/automatic-bpmn-control-flow-analysis-and-resolution/11150
 
-% Link to the extended version which has more details
+% TODO: Update DOI link to fit the extended version on arxiv
+% Extended version: \cite{krauterInstantaneousComprehensibleFixable2024}
 
-\section{Related work?}
-% Could cite my other extended version and put that on arxiv.
+Artifacts: \cite{timkrauterBPM2024Artifacts2024}
 
-\section{Conclusion \& future work}
+\section{Related work?} \label{sec:related-work}
+
+% Breakdown of BPMN coverage: https://github.com/timKraeuter/rust_bpmn_analyzer?tab=readme-ov-file#bpmn-coverage
+
+\section{Conclusion \& future work} \label{sec:conclusion}
 
 In this paper, we describe a novel tool that provides instantaneous, comprehensible, and fixable BPMN control-flow anomaly detection and is integrated into a popular BPMN modeling tool.
 We benchmarked our tool against synthetic and realistic BPMN models to demonstrate instantaneous soundness checking.
