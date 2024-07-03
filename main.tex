@@ -1,7 +1,6 @@
 %% hf: enable header and footer.
 \documentclass[
-twocolumn,
-% hf,
+% hf, % <-- Not sure if this should be enabled
 ]{ceurart}
 
 % One can fix some overfills
@@ -67,8 +66,8 @@ The tool is available online\footnote{\url{https://timkraeuter.com/bpmn-analyzer
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=\linewidth]{images/overview}
-	\caption{Overview of the tool}
+	\includegraphics[width=0.5\linewidth]{images/overview}
+	\caption{Overview of the tool architecture}
 	\label{fig:overview}
 \end{figure}
 
@@ -80,15 +79,14 @@ Three main innovations of the tool:
 % Comprehensible
 % Fixable
 
+% They also want this section
 \section{Maturity of the tool}
 % Scalability tests (instantaneous)
 Improves upon our previous BPMN Analyzer tool~\cite{krauterFormalizationAnalysisBPMN2023}.
+
 % bpmn.io forum link/mention: https://forum.bpmn.io/t/automatic-bpmn-control-flow-analysis-and-resolution/11150
 
-
-% \begin{acknowledgments}
-% Thanks to the anonymous reviewers for their valuable feedback.
-% \end{acknowledgments}
+% Link to the extended version which has more details
 
 \section{Related work?}
 % Could cite my other extended version and put that on arxiv.
@@ -105,9 +103,10 @@ Third, the biggest challenge for model checking is \textit{consumability}, i.e.,
 Our tool addresses all these challenges and even provides quick fixes for common anomalies.
 The tool is a BPMN-specific model checker written in Rust paired with an intuitive user interface based on the popular \textit{bpmn.io} ecosystem that allows easy extension in the future.
 
-\bibliography{bib}
+% \begin{acknowledgments}
+% Thanks to the anonymous reviewers for their valuable feedback.
+% \end{acknowledgments}
 
-% If your work has an appendix, this is the place to put it.
-% \appendix
+\bibliography{bib}
 
 \end{document}
