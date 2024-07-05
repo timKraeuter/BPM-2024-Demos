@@ -115,8 +115,16 @@ All used BPMN models, our tools to generate them, and benchmarking scripts to ru
 \textbf{First}, we benchmarked how our tool handles \textbf{BPMN models of growing size}.
 We generated 500 synthetic BPMN models starting with five elements up to 4000 elements, increasing linearly in size.
 The models repeatedly contain three activities and an exclusive/parallel block with two branches containing one activity per branch (more details in~\cite{krauterInstantaneousComprehensibleFixable2024}).
-The BPMN Analyzer spends from 1 ms up to 9 ms for the BPMN models compared to 0.7 s up to 14 s in our previous tool~\cite{krauterFormalizationAnalysisBPMN2023}.
-In summary, the linear growth of the models leads to a linear growth in state space and, consequently, a linear growth in runtime.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=1\linewidth]{images/model-size-benchmark}
+	\caption{Analysis runtime for models of increasing size}
+	\label{fig:model-size-benchmark}
+\end{figure}
+
+\autoref{fig:model-size-benchmark} shows that the BPMN Analyzer spends from 1 ms up to 9 ms for the BPMN models compared to 0.7 s up to 14 s in our previous tool~\cite{krauterFormalizationAnalysisBPMN2023}.
+In summary, the linear growth of the models leads to a linear growth in state space and, consequently, a linear growth in runtime observed in \autoref{fig:model-size-benchmark}.
 
 \textbf{Second}, we benchmarked the tool against a synthetic data set of models that lead to a state space explosion.
 This represents a \textit{worst case} scenario for formal analysis.
