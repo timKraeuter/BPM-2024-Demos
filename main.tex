@@ -128,7 +128,15 @@ In summary, the linear growth of the models leads to a linear growth in state sp
 
 \textbf{Second}, we benchmarked the tool against a synthetic data set of models that lead to a state space explosion.
 This represents a \textit{worst case} scenario for formal analysis.
-We generated a data set of models~\cite{krauterInstantaneousComprehensibleFixable2024} with a growing number of parallel branches with increasing length, similar to~\cite{corradiniFormalApproachAnalysis2021}.
+We generated a data set of models~\cite{krauterInstantaneousComprehensibleFixable2024} with a growing number of parallel branches with increasing length as shown in \autoref{fig:parallel-branches-models}, similar to~\cite{corradiniFormalApproachAnalysis2021}.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=1\linewidth]{images/parallel-branches}
+	\caption{Models with a growing number of parallel branches and branch length}
+	\label{fig:parallel-branches-models}
+\end{figure}
+
 \autoref{tab:parallel-branches-benchmark} shows the average runtime of our tool when analyzing these models.
 The BPMN Analyzer explores the entire state space while simultaneously analyzing the control flow, i.e., verifying soundness properties.
 
@@ -236,15 +244,13 @@ A user might not like a quick fix if it not only fixes an error but also has uni
 	\label{fig:quick-fixes}
 \end{figure*}
 
-% They also want this section
 \section{Maturity of the tool} \label{sec:maturity}
 The BPMN Analyzer is our newest tool, incorporating many findings from our previous work~\cite{krauterFormalizationAnalysisBPMN2023} while focusing on instantaneous and understandable error detection.
-The tool is open-source~\cite{krauterInstantaneousComprehensibleFixable2024}, and we aim to achieve high code quality by employing industry best practices such as rigorous static analysis, testing, and consistent formatting.
-Furthermore, we demonstrated the tool to companies in the BPMN process orchestration space and received positive initial feedback, as described in the introduction.
+The tool is open-source~\cite{krauterInstantaneousComprehensibleFixable2024}, and we aimed for high code quality by employing industry best practices such as rigorous static analysis, testing, and consistent formatting.
+Furthermore, we demonstrated the tool to companies in the BPMN process orchestration space and received positive feedback~\cite{krauterInstantaneousComprehensibleFixable2024}.
 
-% Scalability tests (instantaneous) --> Generated models are public, including our tool for future direct comparisons
 As described in the previous section, we benchmarked our tool runtime in three scenarios.
-The tool can check most models instantaneously, and we provide more details, including scripts and data needed to reproduce our results in~\cite{krauterInstantaneousComprehensibleFixable2024}.
+The tool can check most models instantaneously, and we provide more details, including scripts and all models needed to reproduce our results in~\cite{krauterInstantaneousComprehensibleFixable2024}.
 
 \section{Related work} \label{sec:related-work}
 
