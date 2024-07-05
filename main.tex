@@ -254,17 +254,34 @@ The tool can check most models instantaneously, and we provide more details, inc
 
 \section{Related work} \label{sec:related-work}
 
-BPMN analysis tools or formalizations are typically compared by their \textbf{coverage} of BPMN elements~\cite{krauterHigherorderTransformationApproach2024,krauterFormalizationAnalysisBPMN2023,corradiniFormalApproachAnalysis2021,houhouFirstOrderLogicVerification2022,houhouFirstOrderLogicSemantics2019}.
-Our tool already supports the common BPMN elements~\cite{krauterInstantaneousComprehensibleFixable2024}, and we aim for coverage similar to popular BPMN process orchestration platforms such as Camunda.
-% Breakdown of BPMN coverage: https://github.com/timKraeuter/rust_bpmn_analyzer?tab=readme-ov-file#bpmn-coverage
-However, we agree with~\cite{fahlandAnalysisDemandInstantaneous2011} that \textbf{analysis runtime} and \textbf{understandability} are the main issues that hinder the wide adoption of formal analysis tools outside academia.
+\textbf{BPMN specification coverage:}
+Most related work focuses on the depth of BPMN formalization while providing control flow analysis by checking soundness and safeness.
+Thus, these approaches show how different BPMN elements can be formalized and compare themselves with each other regarding supported elements~\cite{corradiniFormalApproachAnalysis2021,houhouFirstOrderLogicVerification2022,krauterFormalizationAnalysisBPMN2023,krauterHigherorderTransformationApproach2024}.
+The supported BPMN elements come close to the capabilities of popular process orchestration platforms.
+Our tool supports the same depth of BPMN elements as~\cite{corradiniFormalApproachAnalysis2021}, i.e., the most used gateways, tasks, and events.
+A detailed comparison is available in~\cite{timkrauterBPM2024Artifacts2024}, and we plan to support more elements in the future.
+We focus on tool performance and capabilities concerning comprehension, error resolution, and seamless integration into BPMN modeling tools.
 
-Our tool has comparable BPMN element coverage to~\cite{corradiniFormalApproachAnalysis2021} but is still missing some elements when compared to~\cite{krauterFormalizationAnalysisBPMN2023}, which are currently on the roadmap. 
-In addition, we demonstrated the instantaneous analysis of the BPMN Analyzer, which outperforms other tools~\cite{krauterFormalizationAnalysisBPMN2023,corradiniFormalApproachAnalysis2021,houhouFirstOrderLogicVerification2022} as described in \autoref{sec:innovations}.
-However, comparing tool performance without standard benchmarks and a reproducible environment remains challenging.
-Finally, we have only received positive feedback regarding the tool's usability, especially the interactive visualization of control flow errors.
-Our visualization builds on the~\cite{camundaservicesgmbhBpmnjsTokenSimulation2024} and is similar to the animation capabilities in~\cite{corradiniFormalisingAnimatingMultiple2022}.
+\textbf{Tool performance:}
+Comparing tool performance without standard benchmarks and a reproducible environment is challenging.
+However, other publications indicate that other tools take several seconds up to half a minute to check single soundness properties~\cite{corradiniFormalApproachAnalysis2021,houhouFirstOrderLogicVerification2022,krauterHigherorderTransformationApproach2024}.
+In contrast, our approach instantaneously checks \textit{all} soundness properties and safeness of the same models.
+The difference in performance lies probably in our pragmatic BPMN encoding optimized for analysis and its direct implementation in an efficient programming language rather than in transforming BPMN into general model-checking tools.
 
+\textbf{Tool capabilities:}
+Another way to compare the different BPMN formalizations and analysis tools is to investigate their capabilities.
+Most tools formalize large parts of the BPMN specification and allow soundness and safeness checking~\cite{corradiniFormalApproachAnalysis2021,houhouFirstOrderLogicVerification2022,krauterFormalizationAnalysisBPMN2023,krauterHigherorderTransformationApproach2024}.
+Some tools investigate additional aspects such as the introduction of \textit{data} and \textit{time} during verification~\cite{corradiniFormalisingAnimatingMultiple2022,houhouFirstOrderLogicVerification2022}.
+Furthermore, other tools allow specifying and checking \textit{custom temporal logic properties}~\cite{corradiniFormalApproachAnalysis2021,krauterFormalizationAnalysisBPMN2023} and even provide graphical interfaces to ease the specification~\cite{krauterHigherorderTransformationApproach2024}
+Moreover, some tools provide interactive BPMN simulation using token-flow animation~\cite{camundaservicesgmbhBpmnjsTokenSimulation2024,corradiniFormalisingAnimatingMultiple2022}, while others \textit{visualize counterexamples} for soundness violations using tokens~\cite{houhouFirstOrderLogicVerification2022}.
+
+Our tool focuses on \textit{instantaneous} control flow analysis and does not support custom properties, data, or time.
+We do not provide BPMN simulation since other tools already offer this.
+However, we use token-flow animation to visualize control flow errors interactively.
+This improves comprehension compared to previous static, less interactive visualizations.
+In addition, to the best of our knowledge, our tool is the only one that provides \textit{quick fixes}, i.e., automatic resolutions if control flow errors are detected.
+To sum up, our tool incorporates and enhances several ideas from the state of the art while adding novel concepts, such as quick fixes.
+We advocate for a pragmatic approach, prioritizing performance and understanding above all else to ensure seamless integration into BPMN modeling tools.
 
 \section{Conclusion} \label{sec:conclusion}
 
