@@ -26,7 +26,7 @@ twocolumn
 
 \conference{BPM 2024: Demos and Resources, September 01-06, 2024, Krakow, PL}
 
-\title{BPMN Analyzer 2.0: Instantaneous, Comprehensible, and Fixable Control Flow Analysis for BPMN Models}
+\title{BPMN Analyzer 2.0: Instantaneous, Comprehensible, and Fixable Control Flow Analysis for Realistic BPMN Models}
 % TODO: Update the DOI link to fit the extended version on arxiv
 
 \author[1]{Tim Kräuter}
@@ -72,7 +72,7 @@ These errors hinder the correct execution of BPMN models and may be detected lat
 
 % Solution
 In this paper, we describe a new tool, the \textit{BPMN Analyzer 2.0}\footnote{
-In the following, we will use BPMN Analyzer to refer to the BPMN Analyzer 2.0, not our previous BPMN Analyzer described in~\cite{krauterHigherorderTransformationApproach2024}.}, for analyzing BPMN process models to detect control flow errors \textit{already} during modeling. % TODO: Maybe give concrete examples of what we can check!
+In the following, we will use BPMN Analyzer to refer to the BPMN Analyzer 2.0, not our previous work in~\cite{krauterHigherorderTransformationApproach2024}.}, for analyzing BPMN process models to detect control flow errors \textit{already} during modeling. % TODO: Maybe give concrete examples of what we can check!
 \autoref{fig:overview} shows an overview of the tool.
 The tool front-end is based on the popular \textit{bpmn.io} ecosystem, while the analysis is implemented in Rust for performance and memory efficiency reasons.
 The BPMN Analyzer is open-source and accessible online\footnote{\url{https://timkraeuter.com/bpmn-analyzer-js/}} alongside a video demonstration\footnote{\url{https://www.youtube.com/watch?v=MxXbNUl6IjE}}~\cite{krauterInstantaneousComprehensibleFixable2024}.
@@ -211,12 +211,12 @@ The visualization can be resumed or restarted using the play and restart button 
 When resumed, the gateway \textsf{e1} will execute, resulting in two tokens at the subsequent sequence flow, i.e., an unsafe execution state.
 In addition, one can control the visualization speed using the bottom buttons next to the speedometer.
 
-\begin{figure}[ht]
+\begin{figure*}[ht]
 	\centering
-	\includegraphics[width=1\linewidth]{images/counter-example}
-	\caption{Interactive \textit{erroneous execution} shown in the BPMN Analyzer}
+	\includegraphics[width=0.8\linewidth]{images/counter-example}
+	\caption{\textit{Interactive} erroneous execution example shown in the BPMN Analyzer}
 	\label{fig:counterexample}
-\end{figure}
+\end{figure*}
 
 \subsection{Fixable Analysis}
 In addition to detecting, highlighting, and visualizing control flow errors, the BPMN Analyzer suggests fixes similar to \textit{quick fixes} in Integrated Development Environments.
@@ -229,12 +229,12 @@ A user can apply a quick fix by clicking on a green overlay and instantly see th
 If unhappy with the result, a user can undo all changes since each quick fix is entirely revertible due to the command pattern.
 A user might not like a quick fix if it not only fixes an error but also has unintended side effects, such as introducing a different control flow error.
 
-\begin{figure}[ht]
+\begin{figure*}[ht]
 	\centering
-	\includegraphics[width=1\linewidth]{images/quick-fix}
-	\caption{\textit{Quick fixes} in the analysis tool}
+	\includegraphics[width=0.8\linewidth]{images/quick-fix}
+	\caption{Suggested \textit{quick fixes} in the BPMN Analyzer}
 	\label{fig:quick-fixes}
-\end{figure}
+\end{figure*}
 
 % They also want this section
 \section{Maturity of the tool} \label{sec:maturity}
