@@ -67,14 +67,17 @@ Safeness
 
 % Problem statement
 Business Process Modeling Notation (BPMN) is becoming increasingly popular for automating processes and orchestrating people and systems.
-However, many process models suffer from control flow errors, such as deadlocks, livelocks, starvation, and lack of synchronization~\cite{fahlandAnalysisDemandInstantaneous2011}.
+However, many process models suffer from control flow errors, such as deadlocks, livelocks, and starvation~\cite{fahlandAnalysisDemandInstantaneous2011}.
 These errors hinder the correct execution of BPMN models and may be detected late in the development process, resulting in elevated costs.
 
 % Solution
 In this paper, we describe a new tool, the \textit{BPMN Analyzer 2.0}\footnote{
-In the following, we will use BPMN Analyzer to refer to the BPMN Analyzer 2.0, not our previous work in~\cite{krauterHigherorderTransformationApproach2024}.}, for analyzing BPMN process models to detect control flow errors \textit{already} during modeling. % TODO: Maybe give concrete examples of what we can check!
+In the following, we will use BPMN Analyzer to refer to the BPMN Analyzer 2.0, not our previous work in~\cite{krauterHigherorderTransformationApproach2024}.}, for analyzing BPMN process models to detect control flow errors \textit{already} during modeling.
 \autoref{fig:overview} shows an overview of the tool.
 The tool front-end is based on the popular \textit{bpmn.io} ecosystem, while the analysis is implemented in Rust for performance and memory efficiency reasons.
+We implemented a breadth-first state space exploration~\cite{clarkeHandbookModelChecking2018}.
+While generating the state space, we check BPMN soundness and safeness~\cite{corradiniClassificationBPMNCollaborations2018} \textit{on-the-fly} to uncover control flow errors.
+Consequently, the tool can detect deadlocks, livelocks, starvation, dead activities, and lack of synchronization in BPMN models.
 The BPMN Analyzer is open-source and accessible online\footnote{\url{https://timkraeuter.com/bpmn-analyzer-js/}} alongside a video demonstration\footnote{\url{https://www.youtube.com/watch?v=MxXbNUl6IjE}}~\cite{krauterInstantaneousComprehensibleFixable2024}.
 
 \begin{figure}[ht]
@@ -126,7 +129,7 @@ The models repeatedly contain three activities and an exclusive/parallel block w
 \autoref{fig:model-size-benchmark} shows that the BPMN Analyzer spends from 1 ms up to 9 ms for the BPMN models compared to 0.7 s up to 14 s in our previous tool~\cite{krauterFormalizationAnalysisBPMN2023}.
 In summary, the linear growth of the models leads to a linear growth in state space and, consequently, a linear growth in runtime observed in \autoref{fig:model-size-benchmark}.
 
-\textbf{Second}, we benchmarked the tool against a synthetic data set of models that lead to a state space explosion.
+\textbf{Second}, we benchmarked the tool against a synthetic data set of models that lead to a state space explosion~\cite{clarkeHandbookModelChecking2018}.
 This represents a \textit{worst case} scenario for formal analysis.
 We generated a data set of models~\cite{krauterInstantaneousComprehensibleFixable2024} with a growing number of parallel branches with increasing length as shown in \autoref{fig:parallel-branches-models}, similar to~\cite{corradiniFormalApproachAnalysis2021}.
 
@@ -259,7 +262,7 @@ Most related work focuses on the depth of BPMN formalization while providing con
 Thus, these approaches show how different BPMN elements can be formalized and compare themselves with each other regarding supported elements~\cite{corradiniFormalApproachAnalysis2021,houhouFirstOrderLogicVerification2022,krauterFormalizationAnalysisBPMN2023,krauterHigherorderTransformationApproach2024}.
 The supported BPMN elements come close to the capabilities of popular process orchestration platforms.
 Our tool supports the same depth of BPMN elements as~\cite{corradiniFormalApproachAnalysis2021}, i.e., the most used gateways, tasks, and events.
-A detailed comparison is available in~\cite{timkrauterBPM2024Artifacts2024}, and we plan to support more elements in the future.
+A detailed comparison is available in~\cite{krauterInstantaneousComprehensibleFixable2024}, and we plan to support more elements in the future.
 We focus on tool performance and capabilities concerning comprehension, error resolution, and seamless integration into BPMN modeling tools.
 
 \textbf{Tool performance:}
@@ -283,13 +286,18 @@ In addition, to the best of our knowledge, our tool is the only one that provide
 To sum up, our tool incorporates and enhances several ideas from the state of the art while adding novel concepts, such as quick fixes.
 We advocate for a pragmatic approach, prioritizing performance and understanding above all else to ensure seamless integration into BPMN modeling tools.
 
-\section{Conclusion} \label{sec:conclusion}
+\section{Conclusion \& Future work} \label{sec:conclusion}
 
 In this paper, we describe the novel \textit{BPMN Analyzer} that provides instantaneous, comprehensible, and fixable BPMN control flow error detection and is integrated into a popular BPMN modeling tool.
 We benchmarked our tool against synthetic and realistic BPMN models to demonstrate instantaneous soundness checking.
 We address the three main challenges: \textit{coverage}, \textit{immediacy}, and \textit{consumability} for providing formal analysis to non-expert users as identified in~\cite{fahlandAnalysisDemandInstantaneous2011}.
-In addition, our tool provides quick fixes for common patterns leading to control flow errors.
-One can understand the BPMN Analyzer as a BPMN-specific model checker, implemented in Rust paired with an intuitive user interface based on the popular \textit{bpmn.io} ecosystem that allows easy extension in the future.
+In addition, our tool provides quick fixes for common patterns that lead to control flow errors.
+One can understand the BPMN Analyzer as a BPMN-specific model checker, implemented in Rust paired with an intuitive user interface based on the popular \textit{bpmn.io} ecosystem that is open for extension by design.
+
+In future work, we aim to improve our tool by providing more quick fixes, considering advanced BPMN elements such as different events, and ranking quick fixes based on their usefulness.
+For example, the impact of quick fixes on soundness properties can be part of the ranking since the resulting model can be checked instantaneously in the background.
+Other metrics, such as least change and least surprise from the model repair field, can be used, or one can include previous user behavior.
+Finally, we aspire to test our tool in a real-world scenario to gather feedback and measure its impact on productivity.
 
 % \begin{acknowledgments}
 % Thanks to the anonymous reviewers for their valuable feedback.
