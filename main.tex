@@ -26,6 +26,7 @@
 \conference{BPM 2024: Demos and Resources, September 01-06, 2024, Krakow, PL}
 
 \title{BPMN Analyzer 2.0: Instantaneous, Comprehensible, and Fixable Control Flow Analysis for BPMN Models}
+% TODO: Update the DOI link to fit the extended version on arxiv
 
 \author[1]{Tim Kräuter}
 [email=tkra@hvl.no]
@@ -70,7 +71,7 @@ These errors hinder the correct execution of BPMN models and may be detected lat
 
 % Solution
 In this paper, we describe a new tool, the \textit{BPMN Analyzer 2.0}\footnote{
-In the following, we will use BPMN Analyzer to refer to the BPMN Analyzer 2.0, not our previous BPMN Analyzer described in \cite{krauterFormalizationAnalysisBPMN2023}.}, for analyzing BPMN process models to detect control flow errors \textit{already} during modeling.
+In the following, we will use BPMN Analyzer to refer to the BPMN Analyzer 2.0, not our previous BPMN Analyzer described in~\cite{krauterFormalizationAnalysisBPMN2023}.}, for analyzing BPMN process models to detect control flow errors \textit{already} during modeling. % TODO: Maybe give concrete examples of what we can check!
 \autoref{fig:overview} shows an overview of the tool.
 The tool front-end is based on the popular \textit{bpmn.io} ecosystem, while the analysis is implemented in Rust for performance and memory efficiency reasons.
 The BPMN Analyzer is open-source and accessible online\footnote{\url{https://timkraeuter.com/bpmn-analyzer-js/}} alongside a video demonstration\footnote{\url{https://www.youtube.com/watch?v=MxXbNUl6IjE}}~\cite{krauterInstantaneousComprehensibleFixable2024}.
@@ -82,15 +83,14 @@ The BPMN Analyzer is open-source and accessible online\footnote{\url{https://tim
 	\label{fig:overview}
 \end{figure}
 
-The tool can check models after each change since analysis is \textit{instantaneous} according to \cite{fahlandAnalysisDemandInstantaneous2011}, i.e., it takes 500ms or less.
+The tool can check models after each change since analysis is \textit{instantaneous} according to~\cite{fahlandAnalysisDemandInstantaneous2011}, i.e., it takes 500ms or less.
 Furthermore, we ensure the results are \textit{comprehensible} by highlighting possible violations directly in the model and displaying an interactive counterexample visualization.
 Finally, the tool suggests \textit{fixes} for the most common soundness violations and can be extended to suggest more fixes in the future.
-However, the BPMN analyzer cannot provide fixes for all possible violations due to the wide variety of possible control flow errors in BPMN models.
 
 % Why is it significant for the BPM field?
 Fahland et al.~\cite{fahlandAnalysisDemandInstantaneous2011} describe \textit{coverage}, \textit{immediacy}, and \textit{consumability} as the main challenges for users unaccustomed to formal analysis methods.
 The BPMN Analyzer addresses all these challenges since it supports the most common BPMN elements used in practice (coverage), provides \textit{instantaneous} results (immediacy), and a \textit{comprehensible} user interface (consumability), even including suggestions of fixes.
-Developers of industrial BPMN solutions also like our tool, especially the End-2-End user journey\footnote{\url{https://forum.bpmn.io/t/automatic-bpmn-control flow-analysis-and-resolution/11150}}.
+Developers of industrial BPMN solutions also like our tool, especially the End-2-End user journey~\cite{krauterInstantaneousComprehensibleFixable2024}.
 Thus validating our claim of a UI that is understandable for users unfamiliar with formal analysis methods.
 
 % Paper structure
@@ -102,7 +102,7 @@ Finally, we conclude in \autoref{sec:conclusion}.
 % A section discussing the innovations of the tool or resource to the BPM community and its main characteristics or features
 \section{Innovations} \label{sec:innovations} % Main tool description and showing the innovations
 The BPMN Analyzer has three main innovations: \textbf{instantaneous}, \textbf{comprehensible}, and \textbf{fixable} control flow error detection.
-In this section, we will present the innovations, and more details can be found in our extended paper \cite{krauterInstantaneousComprehensibleFixable2024}.
+In this section, we will present the innovations, and more details can be found in our extended paper~\cite{krauterInstantaneousComprehensibleFixable2024}.
 
 \subsection{Instantaneous Analysis}
 
@@ -153,27 +153,47 @@ Other tools report 2-3s of runtime for most soundness properties and 30s for a m
 \textbf{Third}, we applied our tool to eight \textbf{realistic models}, where three models (e001, e002, e020) are taken from~\cite{houhouFirstOrderLogicVerification2022}, and the remaining five models are part of the Camunda BPMN for research repository\footnote{\url{https://github.com/camunda/bpmn-for-research} \label{footnote:camundaResearch}}.
 The BPMN Analyzer takes 1-10ms for e001, e002, and e020 ~\cite{krauterInstantaneousComprehensibleFixable2024} while~\cite{houhouFirstOrderLogicVerification2022} and~\cite{krauterFormalizationAnalysisBPMN2023} report 3.66-10.26s and 1-1.75s.
 The benchmarks in~\cite{krauterFormalizationAnalysisBPMN2023} were run on the same hardware, while the machine used in~\cite{houhouFirstOrderLogicVerification2022} was slightly less powerful.
+To summarize, we believe our analysis is instantaneous for nearly all models since most models have relatively small state spaces (less than 1000 states, see~\cite{fahlandAnalysisDemandInstantaneous2011}).
 
 \subsection{Comprehensible Analysis}
+We implemented two features to make control flow analysis understandable for everyone. 
+% Highlighting
+\textbf{First}, we highlight the problematic elements that cause control flow errors by directly attaching red overlays to them in the BPMN model.
+In addition, there is a summary panel stating which if any errors are found.
+
+% TODO: A screenshot of the tool would be nice here!
+
+% Counterexample
+\textbf{Second}, we use \textit{tokens} to \textit{interactively} visualize errors, i.e., we show an execution leading to the error.
+Our analysis provides sample executions leading to the possible control-flow errors, which we visualize directly in the BPMN editor by showing how tokens move from the process start to an erroneous state.
+We are unaware of other tools that visualize errors directly in the editor and allow for interactions, such as stopping/resuming, restarting, and speeding up the execution.
 
 \subsection{Fixable Analysis}
+In addition to detecting, highlighting, and visualizing control flow errors, the BPMN Analyzer suggests fixes similar to \textit{quick fixes} in Integrated Development Environments.
+Quick fixes cannot be provided for all errors, but we currently cover some patterns leading to deadlocks, lack of synchronization, message starvation, and reused end events.
+The quick fixes we support are described in detail in~\cite{krauterInstantaneousComprehensibleFixable2024} and can be extended independently of the formal analysis.
+We are unaware of other tools that offer fixes for identified control-flow errors.
 
 % They also want this section
 \section{Maturity of the tool} \label{sec:maturity}
-% Discuss/highlight the implementation: Test cases, static analysis, etc., industrial standard! ;)
+The BPMN Analyzer is our newest tool, incorporating many findings from our previous work~\cite{krauterFormalizationAnalysisBPMN2023} while focusing on instantaneous and understandable error detection.
+The tool is open-source~\cite{krauterInstantaneousComprehensibleFixable2024}, and we aim to achieve high code quality by employing industry best practices such as rigorous static analysis, testing, and consistent formatting.
+Furthermore, we demonstrated the tool to companies in the BPMN process orchestration space and received positive initial feedback, as described in the introduction.
+
 % Scalability tests (instantaneous) --> Generated models are public, including our tool for future direct comparisons
-The BPMN Analyzer is our newest tool, incorporating many findings from our previous work \cite{krauterFormalizationAnalysisBPMN2023} while focusing on instantaneous and understandable error detection.
+As described in the previous section, we benchmarked our tool runtime in three scenarios.
+The tool can check most models instantaneously, and we provide more details, including scripts and data needed to reproduce our results in~\cite{krauterInstantaneousComprehensibleFixable2024}.
 
-% bpmn.io forum link/mention: https://forum.bpmn.io/t/automatic-bpmn-control flow-analysis-and-resolution/11150
+\section{Related work} \label{sec:related-work}
 
-% TODO: Update the DOI link to fit the extended version on arxiv
-% Extended version: \cite{krauterInstantaneousComprehensibleFixable2024}
-
-Artifacts: \cite{krauterInstantaneousComprehensibleFixable2024}
-
-\section{Related work?} \label{sec:related-work}
-
+BPMN analysis tools or formalizations are typically compared by their \textbf{coverage} of BPMN elements~\cite{krauterFormalizationAnalysisBPMN2023,corradiniFormalApproachAnalysis2021,houhouFirstOrderLogicVerification2022}.
+Our tool already supports the common BPMN elements~\cite{krauterInstantaneousComprehensibleFixable2024}, and we aim for coverage similar to popular BPMN process orchestration platforms such as Camunda.
 % Breakdown of BPMN coverage: https://github.com/timKraeuter/rust_bpmn_analyzer?tab=readme-ov-file#bpmn-coverage
+However, we agree with~\cite{fahlandAnalysisDemandInstantaneous2011} that \textbf{analysis runtime} and \textbf{understandability} are the main issues that hinder the wide adoption of formal analysis tools outside academia.
+
+The BPMN Analyzer has comparable BPMN element coverage to~\cite{corradiniFormalApproachAnalysis2021} but is still missing some elements when compared to~\cite{krauterFormalizationAnalysisBPMN2023}, which are currently on the roadmap. 
+In addition, we demonstrated the instantaneous analysis of our tool, which outperforms other tools~\cite{krauterFormalizationAnalysisBPMN2023,corradiniFormalApproachAnalysis2021,houhouFirstOrderLogicVerification2022} as described in \autoref{sec:innovations}.
+Finally, we have only received positive feedback regarding the tool's usability.
 
 \section{Conclusion \& future work} \label{sec:conclusion}
 
