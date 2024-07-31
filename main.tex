@@ -73,7 +73,7 @@ In this paper, we describe a new tool, the \textit{BPMN Analyzer 2.0}\footnote{
 In the following, we will use BPMN Analyzer to refer to the BPMN Analyzer 2.0, not our previous work in~\cite{krauterHigherorderTransformationApproach2024}.}, for analyzing BPMN process models to detect control flow errors \textit{already} during modeling.
 \autoref{fig:overview} shows an overview of the tool.
 The tool front-end is based on the popular \textit{bpmn.io} ecosystem, while the analysis is implemented in Rust for performance and memory efficiency reasons.
-We implemented a breadth-first state space exploration~\cite{clarkeHandbookModelChecking2018}.
+We implemented a breadth-first state space exploration.
 While generating the state space, we check BPMN soundness and safeness~\cite{corradiniClassificationBPMNCollaborations2018} \textit{on the fly} to uncover control flow errors.
 Consequently, the tool can detect deadlocks, livelocks, starvation, dead activities, and lack of synchronization in BPMN models.
 The BPMN Analyzer is open source and accessible online\footnote{\url{https://timkraeuter.com/bpmn-analyzer-js/}} alongside a video demonstration\footnote{\url{https://www.youtube.com/watch?v=Nv2W-hXNZYA}}~\cite{krauterInstantaneousComprehensibleFixable2024}.
@@ -119,7 +119,7 @@ The models repeatedly contain three activities and an exclusive/parallel block w
 The BPMN Analyzer spends from 1 ms up to 9 ms for the BPMN models~\cite{krauterInstantaneousComprehensibleFixable2024} compared to 0.7 s up to 14 s in our previous tool~\cite{krauterHigherorderTransformationApproach2024}.
 In summary, the linear growth of the models leads to a linear growth in state space and, consequently, a linear growth in runtime.
 
-\textbf{Second}, we benchmarked the tool against a synthetic data set of models that led to a state space explosion~\cite{clarkeHandbookModelChecking2018}.
+\textbf{Second}, we benchmarked the tool against a synthetic data set of models that led to a state space explosion.
 This represents a \textit{worst-case} scenario for formal analysis.
 We generated a data set of models~\cite{krauterInstantaneousComprehensibleFixable2024} with a growing number of parallel branches with increasing length, as shown in \autoref{fig:parallel-branches-models}, like~\cite{corradiniFormalApproachAnalysis2021}.
 
@@ -205,18 +205,11 @@ Our analysis provides sample executions leading to the possible control-flow err
 We are unaware of other tools that visualize errors directly in the editor and allow for interactions, such as stopping/resuming, restarting, and speeding up the execution.
 
 % Describe the figure.
-In \autoref{fig:counterexample}, the visualization has been \textit{paused} just before an \textit{unsafe} state was reached.
+In \autoref{fig:screenshots}, the visualization has been \textit{paused} just before an \textit{unsafe} state was reached.
 One token is already located at the marked sequence flow, while a second token is currently waiting at the exclusive gateway \textsf{e1}.
 The visualization can be resumed or restarted using the play and restart button on the left side.
 The gateway \textsf{e1} will execute when resumed, resulting in two tokens at the subsequent sequence flow, i.e., an unsafe execution state.
 In addition, one can control the visualization speed using the bottom buttons next to the speedometer.
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.6\linewidth]{images/counter-example}
-	\caption{\textit{Interactive} erroneous execution example shown in the BPMN Analyzer}
-	\label{fig:counterexample}
-\end{figure}
 
 \subsection{Fixable Analysis}
 In addition to detecting, highlighting, and visualizing control flow errors, the BPMN Analyzer suggests fixes like \textit{quick fixes} in Integrated Development Environments.
@@ -224,25 +217,22 @@ Quick fixes cannot be provided for all errors, but we currently cover many patte
 The quick fixes we support are described in detail in~\cite{krauterInstantaneousComprehensibleFixable2024} and can be extended independently of the formal analysis.
 We are unaware of other tools that offer fixes for identified control-flow errors.
 
-For example, \autoref{fig:quick-fixes} shows a screenshot of our tool, where quick fixes are depicted as green overlays containing a light bulb icon.
+For example, \autoref{fig:screenshots} shows a screenshot of our tool, where quick fixes are depicted as green overlays containing a light bulb icon.
 A user can apply a quick fix by clicking on a green overlay and instantly see the changes regarding control flow errors.
 If unhappy with the result, a user can undo all changes since each quick fix is entirely revertible due to the command pattern.
 A user might not like a quick fix if it not only fixes an error but also has unintended side effects, such as introducing a different control flow error.
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.6\linewidth]{images/quick-fix}
-	\caption{Suggested \textit{quick fixes} in the BPMN Analyzer}
-	\label{fig:quick-fixes}
+	\includegraphics[width=0.8\linewidth]{images/tool-screenshots}
+	\caption{Execution visualization (left) and suggested \textit{quick fixes} (right) in the BPMN Analyzer}
+	\label{fig:screenshots}
 \end{figure}
 
 \section{Maturity of the Tool} \label{sec:maturity}
-The BPMN Analyzer is our newest tool, incorporating many findings from our previous work~\cite{krauterHigherorderTransformationApproach2024} while focusing on instantaneous and understandable error detection.
+The BPMN Analyzer is our newest tool, incorporating many findings from our previous work~\cite{krauterHigherorderTransformationApproach2024} while focusing on instantaneous and understandable error detectionn, as described in the previous section.
 The tool is open source~\cite{krauterInstantaneousComprehensibleFixable2024}, and we aimed to achieve high code quality by employing industry best practices such as rigorous static analysis, testing, and consistent formatting.
 Furthermore, we demonstrated the tool to companies in the BPMN process orchestration space and received positive feedback~\cite{krauterInstantaneousComprehensibleFixable2024}.
-
-As described in the previous section, we benchmarked our tool runtime in three scenarios.
-The tool can check most models instantaneously, and we provide all details, including scripts and all models needed to reproduce our results~\cite{krauterInstantaneousComprehensibleFixable2024}.
 
 \section{Related Work} \label{sec:related-work}
 
@@ -283,14 +273,8 @@ We address the three main challenges, \textit{coverage}, \textit{immediacy}, and
 In addition, our tool offers quick fixes for common patterns that lead to control flow errors.
 One can understand the BPMN Analyzer as a BPMN-specific model checker, implemented in Rust paired with an intuitive user interface based on the popular \textit{bpmn.io} ecosystem that is open for extension by design.
 
-In future work, we aim to improve our tool by providing more quick fixes, considering advanced BPMN elements such as different events, and ranking quick fixes based on their usefulness.
-For example, the impact of quick fixes on all control flow errors can be part of the ranking since the resulting model can be checked instantaneously in the background.
-Other metrics, such as least change and least surprise from the model repair field, can be used, or one can learn from previous user behavior.
+In future work, we aim to improve our tool by providing more quick fixes, considering advanced BPMN elements such as different events, and ranking quick fixes based on usefulness and previous user behavior.
 Finally, we aspire to test our tool in a real-world scenario to gather feedback and measure its impact on productivity.
-
-% \begin{acknowledgments}
-% Thanks to the anonymous reviewers for their valuable feedback.
-% \end{acknowledgments}
 
 \bibliography{bib}
 
