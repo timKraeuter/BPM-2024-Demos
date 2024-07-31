@@ -80,7 +80,7 @@ The BPMN Analyzer is open source and accessible online\footnote{\url{https://tim
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=1\linewidth]{images/overview}
+	\includegraphics[width=0.5\linewidth]{images/overview}
 	\caption{Overview of the BPMN Analyzer 2.0}
 	\label{fig:overview}
 \end{figure}
@@ -133,30 +133,54 @@ We generated a data set of models~\cite{krauterInstantaneousComprehensibleFixabl
 \autoref{tab:parallel-branches-benchmark} shows the average runtime of our tool when analyzing these models.
 The BPMN Analyzer explores the entire state space while simultaneously analyzing the control flow, i.e., verifying soundness properties.
 
-\begin{table}[h]
-	\centering
-	\caption{Benchmark results of the parallel branches models}
-	\label{tab:parallel-branches-benchmark}
-	\SetTblrInner{colsep=2pt}
-	\begin{tblr}{
-			column{1-X} = {c},
-			column{Y-Z} = {r},
-			hline{1, 2, Z} = {-}{1.2pt, solid}, % Z is the last row/column
-			hline{8, 10} = {-}{dashed},
-			vline{2-Y} = {2-Z}{solid}, % Y is the second to last row/column
-		}
-		\textbf{Branches} & \textbf{Branch Length} &\textbf{Runtime} & \textbf{States} \\
-		5 & 1 & 1 ms& 35 \\
-		10 & 1 & 3 ms& 1.027 \\
-		15 & 1 & 161 ms& 32.771 \\
-		16 & 1 & 360 ms& 65.539 \\
-		17 & 1 & 790 ms& 131.075 \\
-		20 & 1 & 8.803 ms& 1.048.579 \\
-		5 & 3 & 3 ms& 1.027 \\
-		5 & 5 & 14 ms& 7.779 \\
-		3 & 10 & 2 ms& 1.334 \\
-		3 & 20 & 11 ms& 9.264 \\
-	\end{tblr}
+\begin{table}[ht]
+    \begin{minipage}{.51\linewidth}
+	   \centering
+	   \caption{Benchmark results of the parallel branches models}
+	   \label{tab:parallel-branches-benchmark}
+	   \SetTblrInner{colsep=2pt}
+	   \begin{tblr}{
+	   		column{1-X} = {c},
+	   		column{Y-Z} = {r},
+	   		hline{1, 2, Z} = {-}{1.2pt, solid}, % Z is the last row/column
+	   		hline{8, 10} = {-}{dashed},
+	   		vline{2-Y} = {2-Z}{solid}, % Y is the second to last row/column
+	   	}
+	       \textbf{Branches} & \textbf{Branch Length} &\textbf{Runtime} & \textbf{States} \\
+	       5 & 1 & 1 ms& 35 \\
+	       10 & 1 & 3 ms& 1.027 \\
+	       15 & 1 & 161 ms& 32.771 \\
+	       16 & 1 & 360 ms& 65.539 \\
+	       17 & 1 & 790 ms& 131.075 \\
+	       20 & 1 & 8.803 ms& 1.048.579 \\
+	       5 & 3 & 3 ms& 1.027 \\
+	       5 & 5 & 14 ms& 7.779 \\
+	       3 & 10 & 2 ms& 1.334 \\
+	       3 & 20 & 11 ms& 9.264 \\
+	   \end{tblr}
+    \end{minipage}%
+    \begin{minipage}{.49\linewidth}
+	   \centering
+	   \caption{Benchmark results of the realistic BPMN models}
+	   \label{tab:realistic-models-benchmark}
+	   \SetTblrInner{colsep=2pt}
+	   \begin{tblr}{
+	   		column{Y-Z} = {r},
+	   		hline{1, 2, Z} = {-}{1.2pt, solid}, % Z is the last row/column
+	   		hline{5} = {-}{dashed},
+	   		vline{2-Y} = {2-Z}{solid}, % Y is the second to last row/column
+	   	}
+	   	   \textbf{Model name} &\textbf{Runtime} & \textbf{States} \\
+	   	   e001~\cite{houhouFirstOrderLogicVerification2022} & 1 ms & 39 \\
+	   	   e002~\cite{houhouFirstOrderLogicVerification2022} & 1 ms & 39 \\
+	   	   e020~\cite{houhouFirstOrderLogicVerification2022} & 10 ms & 5356 \\
+	   	   credit-scoring-async\footref{footnote:camundaResearch} & 1 ms & 60 \\
+	   	   credit-scoring-sync\footref{footnote:camundaResearch} & 1 ms & 140 \\
+	   	   dispatch-of-goods\footref{footnote:camundaResearch} & 1 ms & 103\\
+	   	   recourse\footref{footnote:camundaResearch} & 1 ms & 77 \\
+	   	   self-service-restaurant\footref{footnote:camundaResearch} & 1 ms & 190 \\
+	   \end{tblr}
+    \end{minipage} 
 \end{table}
 
 The models' state space grows exponentially, leading to the same order of growth in runtime.
@@ -166,29 +190,6 @@ Other tools report 2-3s of runtime for most soundness properties and 30s for a m
 
 \textbf{Third}, we applied our tool to eight \textbf{realistic models}, where three models (e001, e002, e020) are taken from~\cite{houhouFirstOrderLogicVerification2022}, and the remaining five models are part of the Camunda BPMN for research repository\footnote{\url{https://github.com/camunda/bpmn-for-research} \label{footnote:camundaResearch}}.
 \autoref{tab:realistic-models-benchmark} shows each model's average runtime and number of states.
-
-\begin{table}[h]
-	\centering
-	\caption{Benchmark results of the realistic BPMN models}
-	\label{tab:realistic-models-benchmark}
-	\SetTblrInner{colsep=2pt}
-	\begin{tblr}{
-			column{Y-Z} = {r},
-			hline{1, 2, Z} = {-}{1.2pt, solid}, % Z is the last row/column
-			hline{5} = {-}{dashed},
-			vline{2-Y} = {2-Z}{solid}, % Y is the second to last row/column
-		}
-		\textbf{Model name} &\textbf{Runtime} & \textbf{States} \\
-		e001~\cite{houhouFirstOrderLogicVerification2022} & 1 ms & 39 \\
-		e002~\cite{houhouFirstOrderLogicVerification2022} & 1 ms & 39 \\
-		e020~\cite{houhouFirstOrderLogicVerification2022} & 10 ms & 5356 \\
-		credit-scoring-async\footref{footnote:camundaResearch} & 1 ms & 60 \\
-		credit-scoring-sync\footref{footnote:camundaResearch} & 1 ms & 140 \\
-		dispatch-of-goods\footref{footnote:camundaResearch} & 1 ms & 103\\
-		recourse\footref{footnote:camundaResearch} & 1 ms & 77 \\
-		self-service-restaurant\footref{footnote:camundaResearch} & 1 ms & 190 \\
-	\end{tblr}
-\end{table}
 
 The BPMN Analyzer takes 1-10ms for e001, e002, and e020~\cite{krauterInstantaneousComprehensibleFixable2024}, while~\cite{houhouFirstOrderLogicVerification2022} and~\cite{krauterFormalizationAnalysisBPMN2023} report 3.66-10.26s and 1-1.75s respectively.
 The benchmarks in~\cite{krauterFormalizationAnalysisBPMN2023} were run on the same hardware, while the machine used in~\cite{houhouFirstOrderLogicVerification2022} was slightly less powerful.
