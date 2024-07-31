@@ -1,6 +1,6 @@
 %% hf: enable header and footer.
 \documentclass[
-twocolumn, % TODO: has to be one col
+onecolumn, % TODO: has to be one col
 % hf, % <-- Not sure if this should be enabled
 ]{ceurart}
 
@@ -115,17 +115,9 @@ All used BPMN models, our tools to generate them, and benchmarking scripts to ru
 
 \textbf{First}, we benchmarked how our tool handles \textbf{BPMN models of growing size}.
 We generated 500 synthetic BPMN models starting with five elements up to 4000.
-The models repeatedly contain three activities and an exclusive/parallel block with two branches containing one activity per branch (more details in~\cite{krauterInstantaneousComprehensibleFixable2024}).
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=1\linewidth]{images/model-size-benchmark}
-	\caption{Analysis runtime for models of increasing size}
-	\label{fig:model-size-benchmark}
-\end{figure}
-
-\autoref{fig:model-size-benchmark} shows that the BPMN Analyzer spends from 1 ms up to 9 ms for the BPMN models compared to 0.7 s up to 14 s in our previous tool~\cite{krauterFormalizationAnalysisBPMN2023}.
-In summary, the linear growth of the models leads to a linear growth in state space and, consequently, a linear growth in runtime observed in \autoref{fig:model-size-benchmark}.
+The models repeatedly contain three activities and an exclusive/parallel block with two branches containing one activity per branch (see ~\cite{krauterInstantaneousComprehensibleFixable2024}).
+The BPMN Analyzer spends from 1 ms up to 9 ms for the BPMN models~\cite{krauterInstantaneousComprehensibleFixable2024} compared to 0.7 s up to 14 s in our previous tool~\cite{krauterFormalizationAnalysisBPMN2023}.
+In summary, the linear growth of the models leads to a linear growth in state space and, consequently, a linear growth in runtime.
 
 \textbf{Second}, we benchmarked the tool against a synthetic data set of models that led to a state space explosion~\cite{clarkeHandbookModelChecking2018}.
 This represents a \textit{worst-case} scenario for formal analysis.
@@ -133,7 +125,7 @@ We generated a data set of models~\cite{krauterInstantaneousComprehensibleFixabl
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=1\linewidth]{images/parallel-branches}
+	\includegraphics[width=0.5\linewidth]{images/parallel-branches}
 	\caption{Models with a growing number of parallel branches and branch length}
 	\label{fig:parallel-branches-models}
 \end{figure}
@@ -220,12 +212,12 @@ The visualization can be resumed or restarted using the play and restart button 
 The gateway \textsf{e1} will execute when resumed, resulting in two tokens at the subsequent sequence flow, i.e., an unsafe execution state.
 In addition, one can control the visualization speed using the bottom buttons next to the speedometer.
 
-\begin{figure*}[ht]
+\begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.82\linewidth]{images/counter-example}
+	\includegraphics[width=0.6\linewidth]{images/counter-example}
 	\caption{\textit{Interactive} erroneous execution example shown in the BPMN Analyzer}
 	\label{fig:counterexample}
-\end{figure*}
+\end{figure}
 
 \subsection{Fixable Analysis}
 In addition to detecting, highlighting, and visualizing control flow errors, the BPMN Analyzer suggests fixes like \textit{quick fixes} in Integrated Development Environments.
@@ -238,12 +230,12 @@ A user can apply a quick fix by clicking on a green overlay and instantly see th
 If unhappy with the result, a user can undo all changes since each quick fix is entirely revertible due to the command pattern.
 A user might not like a quick fix if it not only fixes an error but also has unintended side effects, such as introducing a different control flow error.
 
-\begin{figure*}[ht]
+\begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.82\linewidth]{images/quick-fix}
+	\includegraphics[width=0.6\linewidth]{images/quick-fix}
 	\caption{Suggested \textit{quick fixes} in the BPMN Analyzer}
 	\label{fig:quick-fixes}
-\end{figure*}
+\end{figure}
 
 \section{Maturity of the Tool} \label{sec:maturity}
 The BPMN Analyzer is our newest tool, incorporating many findings from our previous work~\cite{krauterFormalizationAnalysisBPMN2023} while focusing on instantaneous and understandable error detection.
