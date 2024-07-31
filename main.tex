@@ -132,6 +132,10 @@ We generated a data set of models~\cite{krauterInstantaneousComprehensibleFixabl
 
 \autoref{tab:parallel-branches-benchmark} shows the average runtime of our tool when analyzing these models.
 The BPMN Analyzer explores the entire state space while simultaneously analyzing the control flow, i.e., verifying soundness properties.
+The models' state space grows exponentially, leading to the same order of growth in runtime.
+Our analysis is not instantaneous anymore when approaching 17 parallel branches of length 1 (see \autoref{tab:parallel-branches-benchmark}).
+However, analysis is still instantaneous for more reasonable models with five parallel branches of length 5 or 3 branches of length 20.
+Other tools report 2-3s of runtime for most soundness properties and 30s for a model with five parallel branches~\cite{corradiniFormalApproachAnalysis2021}, which took milliseconds in our tool.
 
 \begin{table}[ht]
     \begin{minipage}{.51\linewidth}
@@ -143,7 +147,7 @@ The BPMN Analyzer explores the entire state space while simultaneously analyzing
 	   		column{1-X} = {c},
 	   		column{Y-Z} = {r},
 	   		hline{1, 2, Z} = {-}{1.2pt, solid}, % Z is the last row/column
-	   		hline{8, 10} = {-}{dashed},
+	   		hline{8, 9} = {-}{dashed},
 	   		vline{2-Y} = {2-Z}{solid}, % Y is the second to last row/column
 	   	}
 	       \textbf{Branches} & \textbf{Branch Length} &\textbf{Runtime} & \textbf{States} \\
@@ -153,13 +157,11 @@ The BPMN Analyzer explores the entire state space while simultaneously analyzing
 	       16 & 1 & 360 ms& 65.539 \\
 	       17 & 1 & 790 ms& 131.075 \\
 	       20 & 1 & 8.803 ms& 1.048.579 \\
-	       5 & 3 & 3 ms& 1.027 \\
 	       5 & 5 & 14 ms& 7.779 \\
-	       3 & 10 & 2 ms& 1.334 \\
 	       3 & 20 & 11 ms& 9.264 \\
 	   \end{tblr}
     \end{minipage}%
-    \begin{minipage}{.49\linewidth}
+    \begin{minipage}{.5\linewidth}
 	   \centering
 	   \caption{Benchmark results of the realistic BPMN models}
 	   \label{tab:realistic-models-benchmark}
@@ -183,14 +185,8 @@ The BPMN Analyzer explores the entire state space while simultaneously analyzing
     \end{minipage} 
 \end{table}
 
-The models' state space grows exponentially, leading to the same order of growth in runtime.
-Our analysis is not instantaneous anymore when approaching 17 parallel branches of length 1 (see \autoref{tab:parallel-branches-benchmark}).
-However, analysis is still instantaneous for more reasonable models with five parallel branches of length 5 or 3 branches of length 20.
-Other tools report 2-3s of runtime for most soundness properties and 30s for a model with five parallel branches~\cite{corradiniFormalApproachAnalysis2021}, which took only milliseconds in our tool.
-
 \textbf{Third}, we applied our tool to eight \textbf{realistic models}, where three models (e001, e002, e020) are taken from~\cite{houhouFirstOrderLogicVerification2022}, and the remaining five models are part of the Camunda BPMN for research repository\footnote{\url{https://github.com/camunda/bpmn-for-research} \label{footnote:camundaResearch}}.
 \autoref{tab:realistic-models-benchmark} shows each model's average runtime and number of states.
-
 The BPMN Analyzer takes 1-10ms for e001, e002, and e020~\cite{krauterInstantaneousComprehensibleFixable2024}, while~\cite{houhouFirstOrderLogicVerification2022} and~\cite{krauterFormalizationAnalysisBPMN2023} report 3.66-10.26s and 1-1.75s respectively.
 The benchmarks in~\cite{krauterFormalizationAnalysisBPMN2023} were run on the same hardware, while the machine used in~\cite{houhouFirstOrderLogicVerification2022} was slightly less powerful.
 To summarize, our analysis is instantaneous for nearly all models since most models have relatively small state spaces (less than 1000 states, see~\cite{fahlandAnalysisDemandInstantaneous2011}).
