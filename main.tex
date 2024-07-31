@@ -162,7 +162,6 @@ Other tools report 2-3s of runtime for most soundness properties and 30s for a m
 	       3 & 20 & 11 ms& 9.264 \\
 	   \end{tblr}
     \end{minipage}%
-    \qquad
     \begin{minipage}{.5\linewidth}
 	   \centering
 	   \caption{Benchmark results of the realistic BPMN models}
@@ -266,7 +265,7 @@ Another way to compare the different BPMN formalizations and analysis tools is t
 Most tools formalize large parts of the BPMN specification and allow soundness and safeness checking~\cite{krauterHigherorderTransformationApproach2024,corradiniFormalApproachAnalysis2021,houhouFirstOrderLogicVerification2022}.
 Some tools investigate additional aspects, such as the introduction of \textit{data} and \textit{time} during verification~\cite{houhouFirstOrderLogicVerification2022,corradiniFormalisingAnimatingMultiple2022}.
 Furthermore, other tools allow specifying and checking \textit{custom temporal logic properties}~\cite{krauterHigherorderTransformationApproach2024,corradiniFormalApproachAnalysis2021} and even provide graphical interfaces to ease the specification~\cite{krauterHigherorderTransformationApproach2024}.
-Moreover, some tools provide interactive BPMN simulation using token-flow animation~\cite{corradiniFormalisingAnimatingMultiple2022,camundaservicesgmbhBpmnjsTokenSimulation2024}, while others \textit{visualize counterexamples} for soundness violations using tokens~\cite{houhouFirstOrderLogicVerification2022}.
+Moreover, some tools provide interactive BPMN simulation using token-flow animation~\cite{corradiniFormalisingAnimatingMultiple2022}, while others \textit{visualize counterexamples} for soundness violations using tokens~\cite{houhouFirstOrderLogicVerification2022}.
 
 Our tool focuses on \textit{instantaneous} control flow analysis and does not support custom properties, data, or time.
 We do not provide BPMN simulation since other tools already offer this.
