@@ -97,8 +97,7 @@ Thus, this strengthens our claim of a UI that is understandable to users unfamil
 
 % Paper structure
 In the remainder of the paper, we describe how instantaneous, comprehensible, and fixable control flow error detection is achieved in \autoref{sec:innovations}.
-Then, we discuss the maturity of our tool in \autoref{sec:maturity} before presenting related work in \autoref{sec:related-work}.
-Finally, we conclude in \autoref{sec:conclusion}.
+Then, we discuss related work and tool maturity in \autoref{sec:related-work} before concluding in \autoref{sec:conclusion}.
 
 % Must have section according to the description
 % A section discussing the innovations of the tool or resource to the BPM community and its main characteristics or features
@@ -229,12 +228,7 @@ A user might not like a quick fix if it not only fixes an error but also has uni
 	\label{fig:screenshots}
 \end{figure}
 
-\section{Maturity of the Tool} \label{sec:maturity}
-The BPMN Analyzer is our newest tool, incorporating many findings from our previous work~\cite{krauterHigherorderTransformationApproach2024} while focusing on instantaneous and understandable error detectionn, as described in the previous section.
-The tool is open source~\cite{krauterInstantaneousComprehensibleFixable2024}, and we aimed to achieve high code quality by employing industry best practices such as rigorous static analysis, testing, and consistent formatting.
-Furthermore, we demonstrated the tool to companies in the BPMN process orchestration space and received positive feedback~\cite{krauterInstantaneousComprehensibleFixable2024}.
-
-\section{Related Work} \label{sec:related-work}
+\section{Related Work \& Maturity of the Tool} \label{sec:related-work}
 
 \textbf{BPMN specification coverage:}
 Most related work focuses on the depth of BPMN formalization while providing control flow analysis by checking soundness and safeness.
@@ -257,12 +251,12 @@ Some tools investigate additional aspects, such as the introduction of \textit{d
 Furthermore, other tools allow specifying and checking \textit{custom temporal logic properties}~\cite{krauterHigherorderTransformationApproach2024,corradiniFormalApproachAnalysis2021} and even provide graphical interfaces to ease the specification~\cite{krauterHigherorderTransformationApproach2024}.
 Moreover, some tools provide interactive BPMN simulation using token-flow animation~\cite{corradiniFormalisingAnimatingMultiple2022}, while others \textit{visualize counterexamples} for soundness violations using tokens~\cite{houhouFirstOrderLogicVerification2022}.
 
-Our tool focuses on \textit{instantaneous} control flow analysis and does not support custom properties, data, or time.
-We do not provide BPMN simulation since other tools already offer this.
-However, we use token-flow animation to visualize control flow errors interactively.
-This improves comprehension compared to previous static, less interactive visualizations.
-In addition, to the best of our knowledge, our tool is the only one that provides \textit{quick fixes}, i.e., automatic resolutions if control flow errors are detected.
-To sum up, our tool incorporates and enhances several ideas from the state of the art while adding novel concepts, such as quick fixes.
+
+The BPMN Analyzer is our newest tool, which incorporates and enhances several ideas from the state of the art and focuses on instantaneous control flow analysis.
+The tool is open source~\cite{krauterInstantaneousComprehensibleFixable2024}, and we aimed to achieve high code quality by employing industry best practices such as rigorous static analysis, testing, and consistent formatting.
+Furthermore, we received positive feedbacked from companies in the BPMN process orchestration space~\cite{krauterInstantaneousComprehensibleFixable2024}.
+We use token-flow animation to visualize control flow errors interactively, which improves comprehension compared to previous, non-interactive visualizations.
+In addition, to the best of our knowledge, the tool is the only one that provides \textit{quick fixes}, i.e., automatic resolutions if control flow errors are detected.
 We advocate for a pragmatic approach, prioritizing performance and understanding above all else to ensure seamless integration into BPMN modeling tools.
 
 \section{Conclusion \& Future Work} \label{sec:conclusion}
