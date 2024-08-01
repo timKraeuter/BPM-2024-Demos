@@ -170,7 +170,7 @@ Other tools report 2-3s of runtime for most soundness properties and 30s for a m
 \autoref{tab:realistic-models-benchmark} shows each model's average runtime and number of states.
 The BPMN Analyzer takes 1-10ms for e001, e002, and e020~\cite{krauterInstantaneousComprehensibleFixable2024}, while~\cite{houhouFirstOrderLogicVerification2022} and~\cite{krauterHigherorderTransformationApproach2024} report 3.66-10.26s and 1-1.75s respectively.
 The benchmarks in~\cite{krauterHigherorderTransformationApproach2024} were run on the same hardware, while the machine used in~\cite{houhouFirstOrderLogicVerification2022} was less powerful.
-In general, our analysis is instantaneous for nearly all models since most have less than 1000 states according to~\cite{fahlandAnalysisDemandInstantaneous2011}.
+Our analysis is instantaneous for nearly all BPMN models since most have less than 1000 states, according to~\cite{fahlandAnalysisDemandInstantaneous2011}.
 
 \subsection{Comprehensible Analysis}
 We implemented two features to make control flow analysis understandable for everyone. 
@@ -181,7 +181,7 @@ In addition, there is a summary panel in the top-right stating if any errors are
 % Counterexample
 \textbf{Second}, we use \textit{tokens} to visualize errors \textit{interactively}, i.e., show an execution leading to the error.
 Our analysis provides sample executions resulting in the found control-flow errors, which we visualize in the editor by showing how tokens move from the process start to an erroneous state.
-We are unaware of other tools that visualize errors directly and allow for interactions, such as stopping/resuming and restarting.
+We are unaware of other tools that visualize errors directly and allow interactions, such as stopping/resuming and restarting.
 
 % Describe the figure.
 In \autoref{fig:screenshots}, the visualization has been \textit{paused} just before an \textit{unsafe} state was reached.
