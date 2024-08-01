@@ -70,7 +70,7 @@ These errors hinder the correct execution of BPMN models and may be detected lat
 
 % Solution
 In this paper, we describe a new tool, the \textit{BPMN Analyzer 2.0}\footnote{
-In the following, we will use BPMN Analyzer to refer to the BPMN Analyzer 2.0, not our previous work in~\cite{krauterHigherorderTransformationApproach2024}.}, for analyzing BPMN process models to detect control flow errors \textit{already} during modeling.
+In the following, we will use BPMN Analyzer to refer to the BPMN Analyzer 2.0.}, for analyzing BPMN process models to detect control flow errors \textit{already} during modeling.
 \autoref{fig:overview} shows an overview of the tool.
 The tool front-end is based on the popular \textit{bpmn.io} ecosystem, while the analysis is implemented in Rust for performance and memory efficiency reasons.
 We implemented a breadth-first state space exploration.
@@ -200,8 +200,8 @@ In addition, there is a summary panel in the top-right stating if any errors are
 
 % Counterexample
 \textbf{Second}, we use \textit{tokens} to visualize errors \textit{interactively}, i.e., show an execution leading to the error.
-Our analysis provides sample executions leading to the possible control-flow errors, which we visualize directly in the BPMN editor by showing how tokens move from the process start to an erroneous state.
-We are unaware of other tools that visualize errors directly in the editor and allow for interactions, such as stopping/resuming, restarting, and speeding up the execution.
+Our analysis provides sample executions resulting in the found control-flow errors, which we visualize directly in the BPMN editor by showing how tokens move from the process start to an erroneous state.
+We are unaware of other tools that visualize errors in the editor and allow for interactions, such as stopping/resuming and restarting.
 
 % Describe the figure.
 In \autoref{fig:screenshots}, the visualization has been \textit{paused} just before an \textit{unsafe} state was reached.
@@ -214,7 +214,7 @@ In addition, one can control the visualization speed using the bottom buttons ne
 In addition to detecting, highlighting, and visualizing control flow errors, the BPMN Analyzer suggests fixes like \textit{quick fixes} in Integrated Development Environments.
 Quick fixes cannot be provided for all errors, but we currently cover many patterns leading to deadlocks, lack of synchronization, message starvation, and reused end events.
 The quick fixes we support are described in detail in~\cite{krauterInstantaneousComprehensibleFixable2024} and can be extended independently of the formal analysis.
-We are unaware of other tools that offer fixes for identified control-flow errors.
+We are unaware of other tools that can fix identified control-flow errors.
 
 For example, \autoref{fig:screenshots} shows a screenshot of our tool, where quick fixes are depicted as green overlays containing a light bulb icon.
 A user can apply a quick fix by clicking on a green overlay and instantly see the changes regarding control flow errors.
