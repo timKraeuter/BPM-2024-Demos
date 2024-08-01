@@ -92,12 +92,12 @@ Finally, the tool suggests \textit{fixes} for the most common control flow error
 % Why is it significant for the BPM field?
 Fahland et al.~\cite{fahlandAnalysisDemandInstantaneous2011} describe \textit{coverage}, \textit{immediacy}, and \textit{consumability} as the main challenges for users unaccustomed to formal analysis.
 The BPMN Analyzer addresses all these challenges since it supports the most common BPMN elements used in practice (coverage), provides \textit{instantaneous} results (immediacy), and a \textit{comprehensible} user interface (consumability), even including suggestions for fixes.
-Developers of industrial BPMN solutions also like our tool, especially the End-to-end user journey~\cite{krauterInstantaneousComprehensibleFixable2024}.
-Thus, this strengthens our claim of a UI that is understandable to users unfamiliar with formal analysis.
+Developers of industrial BPMN software also like our tool, especially the End-to-end user journey~\cite{krauterInstantaneousComprehensibleFixable2024}.
+Thus, this supports our claim that the UI is easy for users unfamiliar with formal analysis to understand.
 
 % Paper structure
 In the remainder of the paper, we describe how instantaneous, comprehensible, and fixable control flow error detection is achieved in \autoref{sec:innovations}.
-Then, we discuss related work and tool maturity in \autoref{sec:related-work} before concluding in \autoref{sec:conclusion}.
+Then, we discuss tool maturity in \autoref{sec:maturity} before concluding in \autoref{sec:conclusion}.
 
 % Must have section according to the description
 % A section discussing the innovations of the tool or resource to the BPM community and its main characteristics or features
@@ -228,36 +228,10 @@ A user might not like a quick fix if it not only fixes an error but also has uni
 	\label{fig:screenshots}
 \end{figure}
 
-\section{Related Work \& Maturity of the Tool} \label{sec:related-work}
-
-\textbf{BPMN specification coverage:}
-Most related work focuses on the depth of BPMN formalization while providing control flow analysis by checking soundness and safeness.
-Thus, these approaches show how different BPMN elements can be formalized and compared regarding supported elements~\cite{krauterHigherorderTransformationApproach2024,corradiniFormalApproachAnalysis2021,houhouFirstOrderLogicVerification2022}.
-The supported BPMN elements come close to the capabilities of popular process orchestration platforms.
-Our tool supports the same depth of BPMN elements as~\cite{corradiniFormalApproachAnalysis2021}, i.e., the most used gateways, tasks, and events.
-A detailed comparison is available in~\cite{krauterInstantaneousComprehensibleFixable2024}, and we plan to support more elements in the future.
-We focus on tool performance and capabilities concerning comprehension, error resolution, and seamless integration into BPMN modeling tools.
-
-\textbf{Tool performance:}
-Comparing tool performance without standard benchmarks and a reproducible environment is challenging.
-However, other publications indicate that other tools take several seconds up to half a minute to check single soundness properties~\cite{krauterHigherorderTransformationApproach2024,corradiniFormalApproachAnalysis2021,houhouFirstOrderLogicVerification2022}.
-In contrast, our approach instantaneously checks \textit{all} soundness properties and safeness of the same models.
-The difference in performance lies in our pragmatic BPMN encoding optimized for analysis and its direct implementation in an efficient programming language rather than using general model-checking tools.
-
-\textbf{Tool capabilities:}
-Another way to compare the different BPMN formalizations and analysis tools is to investigate their capabilities.
-Most tools formalize large parts of the BPMN specification and allow soundness and safeness checking~\cite{krauterHigherorderTransformationApproach2024,corradiniFormalApproachAnalysis2021,houhouFirstOrderLogicVerification2022}.
-Some tools investigate additional aspects, such as the introduction of \textit{data} and \textit{time} during verification~\cite{houhouFirstOrderLogicVerification2022,corradiniFormalisingAnimatingMultiple2022}.
-Furthermore, other tools allow specifying and checking \textit{custom temporal logic properties}~\cite{krauterHigherorderTransformationApproach2024,corradiniFormalApproachAnalysis2021} and even provide graphical interfaces to ease the specification~\cite{krauterHigherorderTransformationApproach2024}.
-Moreover, some tools provide interactive BPMN simulation using token-flow animation~\cite{corradiniFormalisingAnimatingMultiple2022}, while others \textit{visualize counterexamples} for soundness violations using tokens~\cite{houhouFirstOrderLogicVerification2022}.
-
-
-The BPMN Analyzer is our newest tool, which incorporates and enhances several ideas from the state of the art and focuses on instantaneous control flow analysis.
+\section{Maturity of the Tool} \label{sec:maturity}
+The BPMN Analyzer is our newest tool, incorporating many findings from our previous work~\cite{krauterHigherorderTransformationApproach2024} while focusing on instantaneous and understandable error detectionn, as described in the previous section.
 The tool is open source~\cite{krauterInstantaneousComprehensibleFixable2024}, and we aimed to achieve high code quality by employing industry best practices such as rigorous static analysis, testing, and consistent formatting.
-Furthermore, we received positive feedbacked from companies in the BPMN process orchestration space~\cite{krauterInstantaneousComprehensibleFixable2024}.
-We use token-flow animation to visualize control flow errors interactively, which improves comprehension compared to previous, non-interactive visualizations.
-In addition, to the best of our knowledge, the tool is the only one that provides \textit{quick fixes}, i.e., automatic resolutions if control flow errors are detected.
-We advocate for a pragmatic approach, prioritizing performance and understanding above all else to ensure seamless integration into BPMN modeling tools.
+Furthermore, we demonstrated the tool to companies in the BPMN process orchestration space and received positive feedback~\cite{krauterInstantaneousComprehensibleFixable2024}.
 
 \section{Conclusion \& Future Work} \label{sec:conclusion}
 
