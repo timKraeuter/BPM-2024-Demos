@@ -72,9 +72,8 @@ These errors hinder the correct execution of BPMN models and may be detected lat
 In this paper, we describe a new tool, the \textit{BPMN Analyzer 2.0}\footnote{
 In the following, we will use BPMN Analyzer to refer to the BPMN Analyzer 2.0.}, for analyzing BPMN process models to detect control flow errors \textit{already} during modeling.
 \autoref{fig:overview} shows an overview of the tool.
-The tool front-end is based on the popular \textit{bpmn.io} ecosystem, while the analysis is implemented in Rust for performance and memory efficiency reasons.
-We implemented a breadth-first state space exploration.
-While generating the state space, we check BPMN soundness and safeness~\cite{corradiniClassificationBPMNCollaborations2018} \textit{on the fly} to uncover control flow errors.
+The UI is based on the popular \textit{bpmn.io} ecosystem, while the analysis is implemented in \textit{Rust} for optimal performance and memory efficiency.
+We perform a breadth-first state space exploration during which we check soundness and safeness~\cite{corradiniClassificationBPMNCollaborations2018} \textit{on the fly} to uncover control flow errors.
 Consequently, the tool can detect deadlocks, livelocks, starvation, dead activities, and lack of synchronization in BPMN models.
 The BPMN Analyzer is open source and accessible online\footnote{\url{https://timkraeuter.com/bpmn-analyzer-js/}} alongside a video demonstration\footnote{\url{https://www.youtube.com/watch?v=Nv2W-hXNZYA}}~\cite{krauterInstantaneousComprehensibleFixable2024}.
 
@@ -116,19 +115,11 @@ All used BPMN models, our tools to generate them, and benchmarking scripts to ru
 We generated 500 synthetic BPMN models starting with five elements up to 4000.
 The models repeatedly contain three activities and an exclusive/parallel block with two branches containing one activity per branch (see ~\cite{krauterInstantaneousComprehensibleFixable2024}).
 The BPMN Analyzer spends from 1 ms up to 9 ms for the BPMN models~\cite{krauterInstantaneousComprehensibleFixable2024} compared to 0.7 s up to 14 s in our previous tool~\cite{krauterHigherorderTransformationApproach2024}.
-In summary, the linear growth of the models leads to a linear growth in state space and, consequently, a linear growth in runtime.
+In summary, the runtime grows linearly with the state space.
 
 \textbf{Second}, we benchmarked the tool against a synthetic data set of models that led to a state space explosion.
 This represents a \textit{worst-case} scenario for formal analysis.
-We generated a data set of models~\cite{krauterInstantaneousComprehensibleFixable2024} with a growing number of parallel branches with increasing length, as shown in \autoref{fig:parallel-branches-models}, like~\cite{corradiniFormalApproachAnalysis2021}.
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.5\linewidth]{images/parallel-branches}
-	\caption{Models with a growing number of parallel branches and branch length}
-	\label{fig:parallel-branches-models}
-\end{figure}
-
+We generated a data set of models~\cite{krauterInstantaneousComprehensibleFixable2024} with a growing number of parallel branches with increasing length, like~\cite{corradiniFormalApproachAnalysis2021}.
 \autoref{tab:parallel-branches-benchmark} shows the average runtime of our tool when analyzing these models.
 The BPMN Analyzer explores the entire state space while simultaneously analyzing the control flow, i.e., verifying soundness properties.
 The models' state space grows exponentially, leading to the same order of growth in runtime.
@@ -137,7 +128,7 @@ However, analysis is still instantaneous for more reasonable models with five pa
 Other tools report 2-3s of runtime for most soundness properties and 30s for a model with five parallel branches~\cite{corradiniFormalApproachAnalysis2021}, which took milliseconds in our tool.
 
 \begin{table}[ht]
-% \scalebox{0.8}{ % TODO: Not sure about scalebox yet.
+\scalebox{0.9}{ % Resize to 90%
     \begin{minipage}{.51\linewidth}
 	   \centering
 	   \caption{Benchmark results of the parallel branches models}
@@ -160,7 +151,10 @@ Other tools report 2-3s of runtime for most soundness properties and 30s for a m
 	       5 & 5 & 14 ms& 7.779 \\
 	       3 & 20 & 11 ms& 9.264 \\
 	   \end{tblr}
-    \end{minipage}%
+    \end{minipage}
+    % Add extra space in the middle
+    \qquad
+    \qquad
     \begin{minipage}{.5\linewidth}
 	   \centering
 	   \caption{Benchmark results of the realistic BPMN models}
@@ -183,35 +177,35 @@ Other tools report 2-3s of runtime for most soundness properties and 30s for a m
 	   	   self-service-restaurant\footref{footnote:camundaResearch} & 1 ms & 190 \\
 	   \end{tblr}
     \end{minipage} 
-% }
+}
 \end{table}
 
 \textbf{Third}, we applied our tool to eight \textbf{realistic models}, where three models (e001, e002, e020) are taken from~\cite{houhouFirstOrderLogicVerification2022}, and the remaining five models are part of the Camunda BPMN for research repository\footnote{\url{https://github.com/camunda/bpmn-for-research} \label{footnote:camundaResearch}}.
 \autoref{tab:realistic-models-benchmark} shows each model's average runtime and number of states.
 The BPMN Analyzer takes 1-10ms for e001, e002, and e020~\cite{krauterInstantaneousComprehensibleFixable2024}, while~\cite{houhouFirstOrderLogicVerification2022} and~\cite{krauterHigherorderTransformationApproach2024} report 3.66-10.26s and 1-1.75s respectively.
-The benchmarks in~\cite{krauterHigherorderTransformationApproach2024} were run on the same hardware, while the machine used in~\cite{houhouFirstOrderLogicVerification2022} was slightly less powerful.
-To summarize, our analysis is instantaneous for nearly all models since most models have relatively small state spaces (less than 1000 states, see~\cite{fahlandAnalysisDemandInstantaneous2011}).
+The benchmarks in~\cite{krauterHigherorderTransformationApproach2024} were run on the same hardware, while the machine used in~\cite{houhouFirstOrderLogicVerification2022} was less powerful.
+In general, our analysis is instantaneous for nearly all models since most have less than 1000 states according to~\cite{fahlandAnalysisDemandInstantaneous2011}.
 
 \subsection{Comprehensible Analysis}
 We implemented two features to make control flow analysis understandable for everyone. 
 % Highlighting
-\textbf{First}, we highlight the problematic elements that cause control flow errors by directly attaching red overlays to them in the BPMN model.
+\textbf{First}, we highlight the problematic elements that cause control flow errors by directly attaching red overlays to them in the model.
 In addition, there is a summary panel in the top-right stating if any errors are found.
 
 % Counterexample
 \textbf{Second}, we use \textit{tokens} to visualize errors \textit{interactively}, i.e., show an execution leading to the error.
-Our analysis provides sample executions resulting in the found control-flow errors, which we visualize directly in the BPMN editor by showing how tokens move from the process start to an erroneous state.
-We are unaware of other tools that visualize errors in the editor and allow for interactions, such as stopping/resuming and restarting.
+Our analysis provides sample executions resulting in the found control-flow errors, which we visualize in the editor by showing how tokens move from the process start to an erroneous state.
+We are unaware of other tools that visualize errors directly and allow for interactions, such as stopping/resuming and restarting.
 
 % Describe the figure.
 In \autoref{fig:screenshots}, the visualization has been \textit{paused} just before an \textit{unsafe} state was reached.
 One token is already located at the marked sequence flow, while a second token is currently waiting at the exclusive gateway \textsf{e1}.
 The visualization can be resumed or restarted using the play and restart button on the left side.
 The gateway \textsf{e1} will execute when resumed, resulting in two tokens at the subsequent sequence flow, i.e., an unsafe execution state.
-In addition, one can control the visualization speed using the bottom buttons next to the speedometer.
+Furthermore, one can control the visualization speed using the bottom buttons next to the speedometer.
 
 \subsection{Fixable Analysis}
-In addition to detecting, highlighting, and visualizing control flow errors, the BPMN Analyzer suggests fixes like \textit{quick fixes} in Integrated Development Environments.
+Besides detecting, highlighting, and visualizing control flow errors, the BPMN Analyzer suggests fixes like \textit{quick fixes} in IDEs.
 Quick fixes cannot be provided for all errors, but we currently cover many patterns leading to deadlocks, lack of synchronization, message starvation, and reused end events.
 The quick fixes we support are described in detail in~\cite{krauterInstantaneousComprehensibleFixable2024} and can be extended independently of the formal analysis.
 We are unaware of other tools that can fix identified control-flow errors.
@@ -223,26 +217,23 @@ A user might not like a quick fix if it not only fixes an error but also has uni
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.8\linewidth]{images/tool-screenshots}
+	\includegraphics[width=1\linewidth]{images/tool-screenshots}
 	\caption{Execution visualization (left) and suggested \textit{quick fixes} (right) in the BPMN Analyzer}
 	\label{fig:screenshots}
 \end{figure}
 
 \section{Maturity of the Tool} \label{sec:maturity}
-The BPMN Analyzer is our newest tool, incorporating many findings from our previous work~\cite{krauterHigherorderTransformationApproach2024} while focusing on instantaneous and understandable error detectionn, as described in the previous section.
-The tool is open source~\cite{krauterInstantaneousComprehensibleFixable2024}, and we aimed to achieve high code quality by employing industry best practices such as rigorous static analysis, testing, and consistent formatting.
-Furthermore, we demonstrated the tool to companies in the BPMN process orchestration space and received positive feedback~\cite{krauterInstantaneousComprehensibleFixable2024}.
+The BPMN Analyzer is incorporates many findings from our previous work~\cite{krauterHigherorderTransformationApproach2024} while focusing on instantaneous and understandable error detection, as described in the previous section.
+The tool is open source~\cite{krauterInstantaneousComprehensibleFixable2024}, and we ensure high code quality by employing industry best practices such as rigorous static analysis and testing.
+Furthermore, we received positive feedback from companies in the BPMN process orchestration space~\cite{krauterInstantaneousComprehensibleFixable2024}.
 
-\section{Conclusion \& Future Work} \label{sec:conclusion}
+\section{Conclusion} \label{sec:conclusion}
 
 In this paper, we describe the novel \textit{BPMN Analyzer} that provides instantaneous, comprehensible, and fixable BPMN control flow error detection and is integrated into a popular BPMN modeling tool.
 We benchmarked our tool against synthetic and realistic BPMN models to demonstrate instantaneous soundness checking.
 We address the three main challenges, \textit{coverage}, \textit{immediacy}, and \textit{consumability}, to provide formal analysis to non-expert users as identified in~\cite{fahlandAnalysisDemandInstantaneous2011}.
 In addition, our tool offers quick fixes for common patterns that lead to control flow errors.
 One can understand the BPMN Analyzer as a BPMN-specific model checker, implemented in Rust paired with an intuitive user interface based on the popular \textit{bpmn.io} ecosystem that is open for extension by design.
-
-In future work, we aim to improve our tool by providing more quick fixes, considering advanced BPMN elements such as different events, and ranking quick fixes based on usefulness and previous user behavior.
-Finally, we aspire to test our tool in a real-world scenario to gather feedback and measure its impact on productivity.
 
 \bibliography{bib}
 
