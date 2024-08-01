@@ -1,10 +1,4 @@
-%% hf: enable header and footer.
-\documentclass[
-onecolumn,
-]{ceurart}
-
-% One can fix some overfills
-% \sloppy
+\documentclass[onecolumn]{ceurart}
 
 % Modern tables + extra stuff workaround
 \selectcolormodel{natural}
@@ -14,7 +8,7 @@ onecolumn,
 
 \begin{document}
 
-% Rights management information. CC-BY is the default license.
+% Rights management information.
 \copyrightyear{2024}
 \copyrightclause{Copyright for this paper by its authors.
   Use permitted under Creative Commons License Attribution 4.0
@@ -27,7 +21,7 @@ onecolumn,
 \author[1]{Tim Kräuter}
 [email=tkra@hvl.no]
 \author[1]{Patrick Stünkel}
-[email=past@hvl.no] % patrick.stuenkel@hvl.no
+[email=past@hvl.no]
 \author[1]{Adrian Rutle}
 [email=aru@hvl.no]
 \author[1]{Yngve Lamo}
@@ -69,7 +63,7 @@ In this paper, we describe a new tool, the \textit{BPMN Analyzer 2.0}\footnote{
 In the following, we will use BPMN Analyzer to refer to the BPMN Analyzer 2.0.}, for analyzing BPMN process models to detect control flow errors \textit{already} during modeling.
 \autoref{fig:overview} shows an overview of the tool.
 The UI is based on the popular \textit{bpmn.io} ecosystem, while the analysis is implemented in \textit{Rust} for optimal performance and memory efficiency.
-We perform a breadth-first state space exploration during which we check soundness and safeness~\cite{corradiniClassificationBPMNCollaborations2018} \textit{on the fly} to uncover control flow errors.
+We perform a breadth-first state space exploration to check soundness and safeness~\cite{corradiniClassificationBPMNCollaborations2018} \textit{on the fly} to uncover control flow errors.
 Consequently, the tool can detect deadlocks, livelocks, starvation, dead activities, and lack of synchronization in BPMN models.
 The BPMN Analyzer is open source and accessible online alongside a video demonstration\footnote{Tool: \url{https://timkraeuter.com/bpmn-analyzer-js/}, Video: \url{https://www.youtube.com/watch?v=Nv2W-hXNZYA}}~\cite{krauterInstantaneousComprehensibleFixable2024}.
 
@@ -88,14 +82,12 @@ Finally, the tool suggests \textit{fixes} for the most common control flow error
 Fahland et al.~\cite{fahlandAnalysisDemandInstantaneous2011} describe \textit{coverage}, \textit{immediacy}, and \textit{consumability} as the main challenges for users unaccustomed to formal analysis.
 The BPMN Analyzer addresses all these challenges since it supports the most common BPMN elements used in practice (coverage), provides \textit{instantaneous} results (immediacy), and a \textit{comprehensible} user interface (consumability), even including suggestions for fixes.
 Developers of industrial BPMN software also like our tool, especially the End-to-end user journey~\cite{krauterInstantaneousComprehensibleFixable2024}.
-Thus, this supports our claim that the UI is easy for users unfamiliar with formal analysis to understand.
+Thus, this supports our claim that the UI is understandable for users unfamiliar with formal analysis.
 
 % Paper structure
 In the remainder of the paper, we describe how instantaneous, comprehensible, and fixable control flow error detection is achieved in \autoref{sec:innovations}.
 Then, we discuss tool maturity in \autoref{sec:maturity} before concluding in \autoref{sec:conclusion}.
 
-% Must have section according to the description
-% A section discussing the innovations of the tool or resource to the BPM community and its main characteristics or features
 \section{Innovations} \label{sec:innovations} % Main tool description and showing the innovations
 The BPMN Analyzer has three main innovations: \textbf{instantaneous}, \textbf{comprehensible}, and \textbf{fixable} control flow error detection.
 In this section, we will present the innovations, and more details can be found in our extended paper~\cite{krauterInstantaneousComprehensibleFixable2024}.
@@ -149,7 +141,6 @@ Other tools report 2-3s of runtime for most soundness properties and 30s for a m
 	       3 & 20 & 11 ms& 9.264 \\
 	   \end{tblr}
     \end{minipage}
-    % Add extra space in the middle
     \begin{minipage}{.5\linewidth}
 	   \centering
 	   \caption{Benchmark results of the realistic BPMN models}
@@ -218,7 +209,7 @@ A user might not like a quick fix if it not only fixes an error but also has uni
 \end{figure}
 
 \section{Maturity of the Tool} \label{sec:maturity}
-The BPMN Analyzer is incorporates many findings from our previous work~\cite{krauterHigherorderTransformationApproach2024} while focusing on instantaneous and understandable error detection, as described in the previous section.
+The BPMN Analyzer incorporates many findings from our previous work~\cite{krauterHigherorderTransformationApproach2024} while focusing on instantaneous and understandable error detection, as described in the previous section.
 The tool is open source~\cite{krauterInstantaneousComprehensibleFixable2024}, and we ensure high code quality by employing industry best practices such as rigorous static analysis and testing.
 Furthermore, we received positive feedback from companies in the BPMN process orchestration space~\cite{krauterInstantaneousComprehensibleFixable2024}.
 
