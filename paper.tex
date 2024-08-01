@@ -1,15 +1,11 @@
 %% hf: enable header and footer.
 \documentclass[
-onecolumn, % TODO: has to be one col
-% hf, % <-- Not sure if this should be enabled
+onecolumn,
 ]{ceurart}
 
 % One can fix some overfills
 % \sloppy
 
-% This was used to mitigate some warnings
-\usepackage[T1]{fontenc}
-\usepackage{lmodern}
 % Modern tables + extra stuff workaround
 \selectcolormodel{natural}
 \usepackage{ninecolors}
@@ -75,11 +71,11 @@ In the following, we will use BPMN Analyzer to refer to the BPMN Analyzer 2.0.},
 The UI is based on the popular \textit{bpmn.io} ecosystem, while the analysis is implemented in \textit{Rust} for optimal performance and memory efficiency.
 We perform a breadth-first state space exploration during which we check soundness and safeness~\cite{corradiniClassificationBPMNCollaborations2018} \textit{on the fly} to uncover control flow errors.
 Consequently, the tool can detect deadlocks, livelocks, starvation, dead activities, and lack of synchronization in BPMN models.
-The BPMN Analyzer is open source and accessible online\footnote{\url{https://timkraeuter.com/bpmn-analyzer-js/}} alongside a video demonstration\footnote{\url{https://www.youtube.com/watch?v=Nv2W-hXNZYA}}~\cite{krauterInstantaneousComprehensibleFixable2024}.
+The BPMN Analyzer is open source and accessible online alongside a video demonstration\footnote{Tool: \url{https://timkraeuter.com/bpmn-analyzer-js/}, Video: \url{https://www.youtube.com/watch?v=Nv2W-hXNZYA}}~\cite{krauterInstantaneousComprehensibleFixable2024}.
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.5\linewidth]{images/overview}
+	\includegraphics[width=0.6\linewidth]{images/overview}
 	\caption{Overview of the BPMN Analyzer 2.0}
 	\label{fig:overview}
 \end{figure}
@@ -120,6 +116,7 @@ In summary, the runtime grows linearly with the state space.
 \textbf{Second}, we benchmarked the tool against a synthetic data set of models that led to a state space explosion.
 This represents a \textit{worst-case} scenario for formal analysis.
 We generated a data set of models~\cite{krauterInstantaneousComprehensibleFixable2024} with a growing number of parallel branches with increasing length, like~\cite{corradiniFormalApproachAnalysis2021}.
+
 \autoref{tab:parallel-branches-benchmark} shows the average runtime of our tool when analyzing these models.
 The BPMN Analyzer explores the entire state space while simultaneously analyzing the control flow, i.e., verifying soundness properties.
 The models' state space grows exponentially, leading to the same order of growth in runtime.
@@ -128,8 +125,8 @@ However, analysis is still instantaneous for more reasonable models with five pa
 Other tools report 2-3s of runtime for most soundness properties and 30s for a model with five parallel branches~\cite{corradiniFormalApproachAnalysis2021}, which took milliseconds in our tool.
 
 \begin{table}[ht]
-\scalebox{0.9}{ % Resize to 90%
-    \begin{minipage}{.51\linewidth}
+\scalebox{1}{ % Somehow needed
+    \begin{minipage}{.5\linewidth}
 	   \centering
 	   \caption{Benchmark results of the parallel branches models}
 	   \label{tab:parallel-branches-benchmark}
@@ -153,8 +150,6 @@ Other tools report 2-3s of runtime for most soundness properties and 30s for a m
 	   \end{tblr}
     \end{minipage}
     % Add extra space in the middle
-    \qquad
-    \qquad
     \begin{minipage}{.5\linewidth}
 	   \centering
 	   \caption{Benchmark results of the realistic BPMN models}
@@ -227,13 +222,16 @@ The BPMN Analyzer is incorporates many findings from our previous work~\cite{kra
 The tool is open source~\cite{krauterInstantaneousComprehensibleFixable2024}, and we ensure high code quality by employing industry best practices such as rigorous static analysis and testing.
 Furthermore, we received positive feedback from companies in the BPMN process orchestration space~\cite{krauterInstantaneousComprehensibleFixable2024}.
 
-\section{Conclusion} \label{sec:conclusion}
+\section{Conclusion \& Future Work} \label{sec:conclusion}
 
 In this paper, we describe the novel \textit{BPMN Analyzer} that provides instantaneous, comprehensible, and fixable BPMN control flow error detection and is integrated into a popular BPMN modeling tool.
 We benchmarked our tool against synthetic and realistic BPMN models to demonstrate instantaneous soundness checking.
 We address the three main challenges, \textit{coverage}, \textit{immediacy}, and \textit{consumability}, to provide formal analysis to non-expert users as identified in~\cite{fahlandAnalysisDemandInstantaneous2011}.
 In addition, our tool offers quick fixes for common patterns that lead to control flow errors.
 One can understand the BPMN Analyzer as a BPMN-specific model checker, implemented in Rust paired with an intuitive user interface based on the popular \textit{bpmn.io} ecosystem that is open for extension by design.
+
+In future work, we aim to improve our tool by providing more quick fixes, considering advanced BPMN elements such as different events, and ranking quick fixes based on usefulness and previous user behavior.
+Finally, we aspire to test our tool in a real-world scenario to gather feedback and measure its impact on productivity.
 
 \bibliography{bib}
 
