@@ -4,6 +4,7 @@ This repository contains the sources of the [paper](./paper.pdf) published at th
 # YouTube Demo
 
 A short **demo** is available on [YouTube](https://www.youtube.com/watch?v=Nv2W-hXNZYA):
+
 [![](https://img.youtube.com/vi/Nv2W-hXNZYA/0.jpg)](https://www.youtube.com/watch?v=Nv2W-hXNZYA)
 
 The tool is accessible in the browser [here](https://timkraeuter.com/bpmn-analyzer-js/).
