@@ -11,6 +11,6 @@ The tool is accessible in the browser [here](https://timkraeuter.com/bpmn-analyz
 
 # Additional resources
 
-1. [Tool](https://timkraeuter.com/bpmn-analyzer-js/)
-2. [Additional artifacts](https://github.com/timKraeuter/BPM-2024-Extended/tree/main)
-3. [Extended Paper](https://arxiv.org/abs/2407.03965)
+- [Tool](https://timkraeuter.com/bpmn-analyzer-js/)
+- [Artifacts (source code, benchmarks, etc.)](https://github.com/timKraeuter/BPM-2024-Extended/tree/main)
+- [Extended Paper (longer more detailed version)](https://arxiv.org/abs/2407.03965)
